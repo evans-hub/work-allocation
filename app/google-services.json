@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1017017099776",
+    "project_id": "work-allocation-efb68",
+    "storage_bucket": "work-allocation-efb68.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1017017099776:android:db57f38acddf670a231ae5",
+        "android_client_info": {
+          "package_name": "com.example.workallocation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1017017099776-p0q8m1s8bqt2bjfthe691aln5rvjtl0s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1rj5mfRfjgyuTwUY8FQBgs8dUmN7HVQA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1017017099776-p0q8m1s8bqt2bjfthe691aln5rvjtl0s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
