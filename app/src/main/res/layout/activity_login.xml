@@ -28,7 +28,35 @@
         android:layout_marginStart="25dp"
         android:layout_marginBottom="50dp"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:padding="5dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal">
 
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="0dp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:layout_marginBottom="0dp"
+            android:text="Choose a user"
+            android:textSize="17sp" />
+
+        <Spinner
+            android:id="@+id/spinnerr"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+
+            />
+    </LinearLayout>
     <EditText
         android:id="@+id/l_email"
         android:layout_width="match_parent"
@@ -56,27 +84,32 @@
         android:background="@drawable/et_custom"
         android:textSize="15sp" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
 
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginBottom="30dp"
-            android:backgroundTint="@color/colorTint"
-            android:bottomLeftRadius="20dp"
-            android:bottomRightRadius="20dp"
-            android:padding="15dp"
-            android:text="Login"
-            android:textColor="@android:color/white"
-            android:topLeftRadius="20dp"
-            android:topRightRadius="20dp" />
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="60dp"
+        android:backgroundTint="@color/colorTint"
+        android:bottomLeftRadius="20dp"
+        android:bottomRightRadius="20dp"
+        android:padding="15dp"
+        android:text="Login"
+        android:textColor="@android:color/white"
+        android:topLeftRadius="20dp"
+        android:topRightRadius="20dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="30dp"
@@ -95,7 +128,7 @@
             android:layout_alignParentBottom="true"
             android:textColor="@color/white"
             android:layout_marginBottom="20dp"/>
+    </LinearLayout>
 
-    </RelativeLayout>
 
 </LinearLayout>

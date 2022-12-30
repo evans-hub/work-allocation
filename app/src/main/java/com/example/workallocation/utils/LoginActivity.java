@@ -7,8 +7,11 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,11 +21,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 EditText em,pp;
 Button btn;
 ProgressDialog loading;
 FirebaseAuth mAuth;
+Spinner spin;
+String user;
+String dep[]={"Admin","Client","Worker"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +38,11 @@ FirebaseAuth mAuth;
         pp=findViewById(R.id.l_password);
         loading=new ProgressDialog(this);
         mAuth=FirebaseAuth.getInstance();
+        spin=findViewById(R.id.spinnerr);
+        spin.setOnItemSelectedListener(this);
+        ArrayAdapter ad= new ArrayAdapter(this,android.R.layout.simple_spinner_item,dep);
+        ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spin.setAdapter(ad);
         TextView textView=findViewById(R.id.swipeLeftee);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,12 +51,12 @@ FirebaseAuth mAuth;
                 LoginActivity.this.finish();
 
             }
-        });
+        });/*
         if (mAuth.getCurrentUser()!=null){
             Intent intent=new Intent(LoginActivity.this, Dashboard.class);
             startActivity(intent);
             finish();
-        }
+        }*/
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,9 +84,21 @@ FirebaseAuth mAuth;
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                if (task.isSuccessful()){
-                   Intent intent=new Intent(LoginActivity.this,SplashScreen.class);
+                   if (user.equalsIgnoreCase("client")){
+                   Intent intent=new Intent(LoginActivity.this,Dashboard.class);
                    startActivity(intent);
                    loading.dismiss();
+                   }
+                   else if (user.equalsIgnoreCase("admin")){
+                       Intent intent=new Intent(LoginActivity.this,AdminDashboard.class);
+                       startActivity(intent);
+                       loading.dismiss();
+                   }
+                   else if(user.equalsIgnoreCase("worker")){
+                       Intent intent=new Intent(LoginActivity.this,UserDashboard.class);
+                       startActivity(intent);
+                       loading.dismiss();
+                   }
                }
                else {
                    loading.dismiss();
@@ -84,5 +107,15 @@ FirebaseAuth mAuth;
                 }
             });
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        user=dep[i];
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

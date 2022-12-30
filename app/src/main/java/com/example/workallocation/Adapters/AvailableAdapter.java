@@ -55,6 +55,8 @@ public class AvailableAdapter extends RecyclerView.Adapter<AvailableAdapter.MyVi
                 refer.setValue(model.getName()).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
+                        DatabaseReference referal = FirebaseDatabase.getInstance().getReference("everyworker").child(model.getId());
+                        referal.setValue(model);
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("available").child(model.getDep()).child(model.getId());
                         ref.removeValue();
                         DatabaseReference reff = FirebaseDatabase.getInstance().getReference("tasks").child(taskId);

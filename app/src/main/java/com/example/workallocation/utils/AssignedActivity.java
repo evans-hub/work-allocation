@@ -9,9 +9,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.workallocation.Adapters.DashAdapter;
+import com.example.workallocation.Adapters.Adapter;
+import com.example.workallocation.Adapters.AssignedAdapter;
 import com.example.workallocation.Entity.TaskModel;
 import com.example.workallocation.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -23,25 +25,28 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class Dashboard extends AppCompatActivity {
-    RecyclerView recyclerView;
-    DashAdapter adapter;
+public class AssignedActivity extends AppCompatActivity {
+    RecyclerView recycle;
+    AssignedAdapter adapter;
     ArrayList<TaskModel> list;
     ProgressDialog loading;
     DatabaseReference reference;
+    TextView vail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);recyclerView=findViewById(R.id.recyclerr);
+        setContentView(R.layout.activity_assigned);
+        recycle=findViewById(R.id.recyclervieww);
         loading = new ProgressDialog(this);
+        vail=findViewById(R.id.available);
         final BottomNavigationView navigationView = (BottomNavigationView) findViewById(R.id.navigation);
         reference = FirebaseDatabase.getInstance().getReference("tasks");
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recycle.setHasFixedSize(true);
+        recycle.setLayoutManager(new LinearLayoutManager(this));
         list = new ArrayList<>();
-        adapter = new DashAdapter(this,list);
-        recyclerView.setAdapter(adapter);
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        adapter = new AssignedAdapter(this,list);
+        recycle.setAdapter(adapter);
+        recycle.addOnScrollListener(new RecyclerView.OnScrollListener() {
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 if (newState == 0) {
                     navigationView.setVisibility(View.VISIBLE);
@@ -63,18 +68,19 @@ public class Dashboard extends AppCompatActivity {
                     list.add((TaskModel) dataSnapshot.getValue(TaskModel.class));
                 }
                 adapter.notifyDataSetChanged();
-                if (Dashboard.this.list.size() == 0) {
-                    Toast.makeText(Dashboard.this, "No tasks", Toast.LENGTH_SHORT).show();
+                if (AssignedActivity.this.list.size() == 0) {
+                    Toast.makeText(AssignedActivity.this, "No tasks", Toast.LENGTH_SHORT).show();
                 }
                 int total = 0;
-                for (int i = 0; i < Dashboard.this.list.size(); i++) {
+                for (int i = 0; i < AssignedActivity.this.list.size(); i++) {
                     total++;
                 }
+                vail.setText(String.valueOf(total) + " Available Tasks");
             }
 
             public void onCancelled(DatabaseError error) {
                 loading.dismiss();
-                Toast.makeText(Dashboard.this, "Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AssignedActivity.this, "Error", Toast.LENGTH_SHORT).show();
             }
         });
         ((BottomNavigationView) findViewById(R.id.navigation)).setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -89,7 +95,7 @@ public class Dashboard extends AppCompatActivity {
                         finish();
                         return false;
                     case R.id.settings:
-                        startActivity(new Intent(getApplicationContext(), AssignedActivity.class));
+                        startActivity(new Intent(getApplicationContext(), SplashScreen.class));
                         finish();
                         return false;
                     case R.id.task:
