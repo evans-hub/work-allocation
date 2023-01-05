@@ -16,10 +16,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.workallocation.R;
+import com.example.workallocation.utils.Admin.AdminDashboard;
+import com.example.workallocation.utils.Admin.Workers;
+import com.example.workallocation.utils.User.UserDashboard;
+import com.example.workallocation.utils.Worker.Dashboard;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.auth.User;
 
 public class LoginActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 EditText em,pp;
@@ -28,7 +33,12 @@ ProgressDialog loading;
 FirebaseAuth mAuth;
 Spinner spin;
 String user;
+String id,bn;
+TextView vb;
 String dep[]={"Admin","Client","Worker"};
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +49,7 @@ String dep[]={"Admin","Client","Worker"};
         loading=new ProgressDialog(this);
         mAuth=FirebaseAuth.getInstance();
         spin=findViewById(R.id.spinnerr);
+        vb=findViewById(R.id.cl);
         spin.setOnItemSelectedListener(this);
         ArrayAdapter ad= new ArrayAdapter(this,android.R.layout.simple_spinner_item,dep);
         ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -51,12 +62,28 @@ String dep[]={"Admin","Client","Worker"};
                 LoginActivity.this.finish();
 
             }
-        });/*
+        });
         if (mAuth.getCurrentUser()!=null){
-            Intent intent=new Intent(LoginActivity.this, Dashboard.class);
-            startActivity(intent);
-            finish();
-        }*/
+            String emm=mAuth.getCurrentUser().getEmail();
+            if (emm.contains("admin")){
+                Intent intent=new Intent(LoginActivity.this, AdminDashboard.class);
+                startActivity(intent);
+                loading.dismiss();
+                finish();
+            }
+           else if (emm.contains("worker")){
+                Intent intent=new Intent(LoginActivity.this, UserDashboard.class);
+                startActivity(intent);
+                loading.dismiss();
+                finish();
+            }
+           else {
+                Intent intent=new Intent(LoginActivity.this, Dashboard.class);
+                startActivity(intent);
+                finish();
+            }
+
+        }
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,7 +97,7 @@ String dep[]={"Admin","Client","Worker"};
         loading.setTitle("Sign In");
         loading.setCanceledOnTouchOutside(false);
 
-        String email=em.getText().toString().trim();
+        String email=em.getText().toString().trim().toLowerCase();
         String password=pp.getText().toString().trim();
         if(email.equalsIgnoreCase("")){
             em.setError("Enter Email");
@@ -79,33 +106,120 @@ String dep[]={"Admin","Client","Worker"};
             pp.setError("Enter Password");
         }
         else{
-            loading.show();
-            mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-               if (task.isSuccessful()){
-                   if (user.equalsIgnoreCase("client")){
-                   Intent intent=new Intent(LoginActivity.this,Dashboard.class);
-                   startActivity(intent);
-                   loading.dismiss();
-                   }
-                   else if (user.equalsIgnoreCase("admin")){
-                       Intent intent=new Intent(LoginActivity.this,AdminDashboard.class);
-                       startActivity(intent);
-                       loading.dismiss();
-                   }
-                   else if(user.equalsIgnoreCase("worker")){
-                       Intent intent=new Intent(LoginActivity.this,UserDashboard.class);
-                       startActivity(intent);
-                       loading.dismiss();
-                   }
-               }
-               else {
-                   loading.dismiss();
-                   Toast.makeText(LoginActivity.this, "Error:"+task.getException().toString(), Toast.LENGTH_SHORT).show();
-               }
+            if (user.equalsIgnoreCase("admin")){
+                if (!email.contains("admin")){
+                    em.setError("Invalid Admin Email");
                 }
-            });
+                else{
+                    loading.show();
+                    mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()){
+                                mAuth=FirebaseAuth.getInstance();
+
+                                if (user.equalsIgnoreCase("admin")){
+                                    Intent intent=new Intent(LoginActivity.this,AdminDashboard.class);
+                                    startActivity(intent);
+                                    loading.dismiss();
+                                    finish();
+                                }
+                                else if(user.equalsIgnoreCase("worker")){
+                                    Intent intent=new Intent(LoginActivity.this, UserDashboard.class);
+                                    startActivity(intent);
+                                    loading.dismiss();
+                                    finish();
+                                }
+                                else {
+                                    Intent intent=new Intent(LoginActivity.this, Dashboard.class);
+                                    startActivity(intent);
+                                    loading.dismiss();
+                                    finish();
+
+                                }
+                            }
+                            else {
+                                loading.dismiss();
+                                Toast.makeText(LoginActivity.this, "Error:"+task.getException().toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+            }
+
+            else if (user.equalsIgnoreCase("worker")){
+                if (!email.contains("worker")){
+                    em.setError("Invalid Worker Email");
+                }
+                else{
+                    loading.show();
+                    mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()){
+                                mAuth=FirebaseAuth.getInstance();
+                                if (user.equalsIgnoreCase("admin")){
+                                    Intent intent=new Intent(LoginActivity.this,AdminDashboard.class);
+                                    startActivity(intent);
+                                    loading.dismiss();
+                                    finish();
+                                }
+                                else if(user.equalsIgnoreCase("worker")){
+                                    Intent intent=new Intent(LoginActivity.this, UserDashboard.class);
+                                    startActivity(intent);
+                                    loading.dismiss();
+                                    finish();
+                                }
+                                else {
+                                    Intent intent=new Intent(LoginActivity.this, Dashboard.class);
+                                    startActivity(intent);
+                                    loading.dismiss();
+                                    finish();
+
+                                }
+                            }
+                            else {
+                                loading.dismiss();
+                                Toast.makeText(LoginActivity.this, "Error:"+task.getException().toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+            }
+            else {
+
+                loading.show();
+                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            mAuth = FirebaseAuth.getInstance();
+                            if (user.equalsIgnoreCase("client")) {
+                                Intent intent = new Intent(LoginActivity.this, Dashboard.class);
+
+
+                                startActivity(intent);
+                                finish();
+                                loading.dismiss();
+                                finish();
+                            } else if (user.equalsIgnoreCase("admin")) {
+                                Intent intent = new Intent(LoginActivity.this, AdminDashboard.class);
+                                startActivity(intent);
+                                loading.dismiss();
+                                finish();
+                            } else if (user.equalsIgnoreCase("worker")) {
+                                Intent intent = new Intent(LoginActivity.this, Workers.class);
+                                startActivity(intent);
+                                loading.dismiss();
+                                finish();
+                            }
+                        } else {
+                            loading.dismiss();
+                            Toast.makeText(LoginActivity.this, "Error:" + task.getException().toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
         }
     }
 

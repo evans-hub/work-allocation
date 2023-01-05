@@ -7,8 +7,11 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,12 +24,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class Registration extends AppCompatActivity {
+public class Registration extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 private EditText nam,pass,phon,nation,ema;
 Button btn;
 FirebaseAuth mAuth;
 DatabaseReference reference;
 ProgressDialog loading;
+Spinner spin;
+String user;
+String path;
+TextView tt;
+    String dep[]={"Admin","Client","Worker"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +46,14 @@ ProgressDialog loading;
         phon=findViewById(R.id.et_phone);
         nation=findViewById(R.id.et_id);
         ema=findViewById(R.id.et_email);
+        tt=findViewById(R.id.tr);
         mAuth=FirebaseAuth.getInstance();
+        spin=findViewById(R.id.spinn);
+        spin.setVisibility(View.GONE);
+        spin.setOnItemSelectedListener(this);
+        ArrayAdapter ad= new ArrayAdapter(this,android.R.layout.simple_spinner_item,dep);
+        ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spin.setAdapter(ad);
         loading=new ProgressDialog(this);
         TextView textView=findViewById(R.id.swipeLeft);
         textView.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +63,7 @@ ProgressDialog loading;
                 Registration.this.finish();
             }
         });
-        reference= FirebaseDatabase.getInstance().getReference("users");
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,7 +78,7 @@ ProgressDialog loading;
         loading.setCanceledOnTouchOutside(false);
 
         String name=nam.getText().toString().trim();
-        String email=ema.getText().toString().trim();
+        String email=ema.getText().toString().trim().toLowerCase();
         String password=pass.getText().toString().trim();
         String id=nation.getText().toString().trim();
         String phone=phon.getText().toString().trim();
@@ -71,16 +86,23 @@ ProgressDialog loading;
             nam.setError("Enter Name");
         }
         else if(email.equalsIgnoreCase("")){
-            ema.setError("Enter Email");
+            ema.setError("Enter Email/Invalid Email");
         }
-        else if(password.equalsIgnoreCase("")){
-            pass.setError("Enter Password");
+        else if (email.contains("admin")){
+            ema.setError("Email cannot contain admin");
         }
+        else if (email.contains("worker")){
+            ema.setError("Email cannot contain worker");
+        }
+
         else if(id.equalsIgnoreCase("")){
             nation.setError("Enter National Id");
         }
         else if(phone.equalsIgnoreCase("")){
             phon.setError("Enter Phone number");
+        }
+        else if(password.equalsIgnoreCase("")){
+            pass.setError("Enter Password");
         }
         else
         {
@@ -89,13 +111,16 @@ ProgressDialog loading;
               @Override
               public void onComplete(@NonNull Task<AuthResult> task) {
                   if (task.isSuccessful()){
+
+                      path=tt.getText().toString();
+                      reference= FirebaseDatabase.getInstance().getReference("users");
                      String bb= FirebaseAuth.getInstance().getCurrentUser().getUid();
                       Model model=new Model(name,email,phone,id,FirebaseAuth.getInstance().getCurrentUser().getUid());
                       reference.child(bb).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
                           @Override
                           public void onComplete(@NonNull Task<Void> task) {
                               if (task.isSuccessful()){
-                                  Toast.makeText(Registration.this, "Worker Registered Successfully", Toast.LENGTH_SHORT).show();
+                                  Toast.makeText(Registration.this, "User Registered Successfully", Toast.LENGTH_SHORT).show();
 
                                   Registration.this.startActivity(new Intent(Registration.this, LoginActivity.class));
                                   Registration.this.finish();
@@ -118,5 +143,15 @@ ProgressDialog loading;
               }
           })  ;
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        user=dep[i];
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

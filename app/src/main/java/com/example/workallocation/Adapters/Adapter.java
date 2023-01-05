@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.workallocation.utils.Design;
+import com.example.workallocation.utils.Worker.Design;
 import com.example.workallocation.Entity.TaskModel;
 import com.example.workallocation.R;
 
@@ -129,8 +129,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             holder.myr.setText(dayofmonth);
             holder.mmonth.setText(bb);
             holder.mhrs.setText(model.getStartdate());
-            holder.mmins.setText(bb);
-            holder.msecs.setText(bb);
+            holder.mmins.setText(model.getTaskId());
+            holder.msecs.setText(model.getAssigned_to());
             holder.assign.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

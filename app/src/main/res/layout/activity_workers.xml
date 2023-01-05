@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@drawable/simple_shade"
-    tools:context=".utils.Workers">
+    tools:context=".utils.Admin.Workers">
 
     <TextView
         android:id="@+id/tv_logo"
@@ -76,6 +76,18 @@
         android:layout_marginBottom="10dp"
         android:padding="15dp"
         android:inputType="number"
+        android:background="@drawable/et_custom"
+        android:textSize="15sp" />
+    <EditText
+        android:id="@+id/w_pass"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Password"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:padding="15dp"
+        android:inputType="textPassword"
         android:background="@drawable/et_custom"
         android:textSize="15sp" />
 
@@ -154,9 +166,9 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="0dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorRed"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
         app:labelVisibilityMode="labeled"
-        app:menu="@menu/bottom_menu" />
+        app:menu="@menu/user_menu" />
 </LinearLayout>

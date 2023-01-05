@@ -1,10 +1,12 @@
-package com.example.workallocation.utils;
+package com.example.workallocation.utils.Admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -12,13 +14,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.workallocation.Adapters.AssignedAdapter;
-import com.example.workallocation.Entity.TaskModel;
+import com.example.workallocation.Adapters.AvailableAdapter;
+import com.example.workallocation.Entity.workModel;
 import com.example.workallocation.R;
-import com.example.workallocation.utils.Admin.AdminDashboard;
-import com.example.workallocation.utils.Admin.AllWorkers;
-import com.example.workallocation.utils.Admin.ViewActivity;
-import com.example.workallocation.utils.Admin.ViewWorkers;
+import com.example.workallocation.utils.ProfileActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,28 +27,47 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class AssignedActivity extends AppCompatActivity {
-    RecyclerView recycle;
-    AssignedAdapter adapter;
-    ArrayList<TaskModel> list;
+public class Available extends AppCompatActivity {
+    RecyclerView recyclerView;
+    AvailableAdapter adapter;
+    ArrayList<workModel> list;
     ProgressDialog loading;
     DatabaseReference reference;
-    TextView vail;
+    AlertDialog.Builder builds,build;
+    TextView tt;
+    String path;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_assigned);
-        recycle=findViewById(R.id.recyclervieww);
+        setContentView(R.layout.activity_available);
+        recyclerView=findViewById(R.id.recycler);
         loading = new ProgressDialog(this);
-        vail=findViewById(R.id.available);
+        tt=findViewById(R.id.text);
         final BottomNavigationView navigationView = (BottomNavigationView) findViewById(R.id.navigation);
-        reference = FirebaseDatabase.getInstance().getReference("tasks");
-        recycle.setHasFixedSize(true);
-        recycle.setLayoutManager(new LinearLayoutManager(this));
+        String dep=getIntent().getStringExtra("dep");
+        if(dep.equalsIgnoreCase("finance")){
+            tt.setText("Finance");
+        }
+        if(dep.equalsIgnoreCase("inquiries")){
+            tt.setText("Inquiries");
+        }
+        if(dep.equalsIgnoreCase("others")){
+            tt.setText("Others");
+        }
+        if(dep.equalsIgnoreCase("technical")){
+            tt.setText("Technical");
+        }
+        if(dep.equalsIgnoreCase("admin")){
+            tt.setText("Admin");
+        }
+        path=tt.getText().toString().trim();
+        reference = FirebaseDatabase.getInstance().getReference("available");
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         list = new ArrayList<>();
-        adapter = new AssignedAdapter(this,list);
-        recycle.setAdapter(adapter);
-        recycle.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        adapter = new AvailableAdapter(this,list);
+        recyclerView.setAdapter(adapter);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 if (newState == 0) {
                     navigationView.setVisibility(View.VISIBLE);
@@ -64,26 +82,36 @@ public class AssignedActivity extends AppCompatActivity {
             }
         });
         this.loading.show();
-        this.reference.addValueEventListener(new ValueEventListener() {
+        this.reference.child(path).addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    list.add((workModel) dataSnapshot.getValue(workModel.class));
                     loading.dismiss();
-                    list.add((TaskModel) dataSnapshot.getValue(TaskModel.class));
                 }
                 adapter.notifyDataSetChanged();
-                if (AssignedActivity.this.list.size() == 0) {
-                    Toast.makeText(AssignedActivity.this, "No tasks", Toast.LENGTH_SHORT).show();
+                if (Available.this.list.size() == 0) {
+                    AlertDialog alert = Available.this.builds.create();
+                    alert.setTitle("Available workers");
+                    alert.show();
                 }
                 int total = 0;
-                for (int i = 0; i < AssignedActivity.this.list.size(); i++) {
+                for (int i = 0; i < Available.this.list.size(); i++) {
                     total++;
                 }
-                vail.setText(String.valueOf(total) + " Available Tasks");
             }
 
             public void onCancelled(DatabaseError error) {
                 loading.dismiss();
-                Toast.makeText(AssignedActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Available.this, "Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+        this.builds = new AlertDialog.Builder(this);
+        this.builds.setMessage("Workers").setTitle("Available Workers");
+        this.builds.setMessage("There are no available workers now").setCancelable(false).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id2) {
+                Intent intent=new Intent(Available.this, ViewActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         ((BottomNavigationView) findViewById(R.id.navigation)).setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

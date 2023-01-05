@@ -1,5 +1,6 @@
-package com.example.workallocation.utils;
+package com.example.workallocation.utils.User;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,14 +13,17 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.workallocation.Adapters.AssignedAdapter;
+import com.example.workallocation.Adapters.DashAdapter;
+import com.example.workallocation.Adapters.Userdashboardadapter;
 import com.example.workallocation.Entity.TaskModel;
 import com.example.workallocation.R;
-import com.example.workallocation.utils.Admin.AdminDashboard;
-import com.example.workallocation.utils.Admin.AllWorkers;
+import com.example.workallocation.utils.AssignedActivity;
+import com.example.workallocation.utils.Admin.Available;
 import com.example.workallocation.utils.Admin.ViewActivity;
-import com.example.workallocation.utils.Admin.ViewWorkers;
+import com.example.workallocation.utils.ProfileActivity;
+import com.example.workallocation.utils.Worker.Dashboard;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,28 +32,55 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class AssignedActivity extends AppCompatActivity {
-    RecyclerView recycle;
-    AssignedAdapter adapter;
+public class UserDashboard extends AppCompatActivity {
+    RecyclerView recyclerView;
+    Userdashboardadapter adapter;
+    String uid,idnumber;
+    TextView textView;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        uid=mAuth.getCurrentUser().getUid();
+        DatabaseReference reference=FirebaseDatabase.getInstance().getReference("workemail");
+        reference.child(uid).child("id").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                idnumber=snapshot.getValue(String.class);
+                textView.setText(idnumber);
+                Toast.makeText(UserDashboard.this, "id number"+idnumber, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
     ArrayList<TaskModel> list;
     ProgressDialog loading;
-    DatabaseReference reference;
-    TextView vail;
+    DatabaseReference references;
+    FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_assigned);
-        recycle=findViewById(R.id.recyclervieww);
+        setContentView(R.layout.activity_user_dashboard);
+        recyclerView=findViewById(R.id.rec);
         loading = new ProgressDialog(this);
-        vail=findViewById(R.id.available);
+        mAuth=FirebaseAuth.getInstance();
+        textView=findViewById(R.id.texx);
         final BottomNavigationView navigationView = (BottomNavigationView) findViewById(R.id.navigation);
-        reference = FirebaseDatabase.getInstance().getReference("tasks");
-        recycle.setHasFixedSize(true);
-        recycle.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         list = new ArrayList<>();
-        adapter = new AssignedAdapter(this,list);
-        recycle.setAdapter(adapter);
-        recycle.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        adapter = new Userdashboardadapter(this,list);
+        recyclerView.setAdapter(adapter);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 if (newState == 0) {
                     navigationView.setVisibility(View.VISIBLE);
@@ -64,45 +95,46 @@ public class AssignedActivity extends AppCompatActivity {
             }
         });
         this.loading.show();
-        this.reference.addValueEventListener(new ValueEventListener() {
+        references = FirebaseDatabase.getInstance().getReference("tasks")/*.child(textView.getText().toString())*/;
+        this.references.addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     loading.dismiss();
                     list.add((TaskModel) dataSnapshot.getValue(TaskModel.class));
                 }
                 adapter.notifyDataSetChanged();
-                if (AssignedActivity.this.list.size() == 0) {
-                    Toast.makeText(AssignedActivity.this, "No tasks", Toast.LENGTH_SHORT).show();
+                if (UserDashboard.this.list.size() == 0) {
+                    Toast.makeText(UserDashboard.this, "No taskss", Toast.LENGTH_SHORT).show();
+                    loading.dismiss();
                 }
                 int total = 0;
-                for (int i = 0; i < AssignedActivity.this.list.size(); i++) {
+                for (int i = 0; i < UserDashboard.this.list.size(); i++) {
                     total++;
                 }
-                vail.setText(String.valueOf(total) + " Available Tasks");
             }
 
             public void onCancelled(DatabaseError error) {
                 loading.dismiss();
-                Toast.makeText(AssignedActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserDashboard.this, "Error", Toast.LENGTH_SHORT).show();
             }
         });
         ((BottomNavigationView) findViewById(R.id.navigation)).setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_profile:
-                        startActivity(new Intent(getApplicationContext(), ViewActivity.class));
-                        finish();
-                        return false;
-                    case R.id.action_home:
-                        startActivity(new Intent(getApplicationContext(), AdminDashboard.class));
-                        finish();
-                        return false;
-                    case R.id.settings:
                         startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         finish();
                         return false;
+                    case R.id.action_home:
+                        startActivity(new Intent(getApplicationContext(), UserDashboard.class));
+                        finish();
+                        return false;
+                    /*case R.id.settings:
+                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                        finish();
+                        return false;*/
                     case R.id.task:
-                        startActivity(new Intent(getApplicationContext(), AllWorkers.class));
+                        startActivity(new Intent(getApplicationContext(), UserDashboard.class));
                         finish();
                         return false;
                     default:

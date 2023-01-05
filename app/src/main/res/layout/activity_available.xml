@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".utils.Available">
+    tools:context=".utils.Admin.Available">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,9 +35,9 @@
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="0dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorRed"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
         app:labelVisibilityMode="labeled"
-        app:menu="@menu/bottom_menu" />
+        app:menu="@menu/user_menu"/>
 </RelativeLayout>

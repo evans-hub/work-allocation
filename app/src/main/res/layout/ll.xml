@@ -54,40 +54,40 @@
 
             </LinearLayout>
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-
-    <TextView
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="2dp"
-        android:text="Department"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/y_desc"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
-        tools:text="Description" />
-</LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-            <TextView
-                android:layout_width="100dp"
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:text="Department"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/y_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    tools:text="Description" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Availability"
-                android:layout_marginRight="2dp"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"/>
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Availability"
+                    android:layout_marginRight="2dp"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -101,7 +101,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
-                android:text="ASSIGN"
+                android:text="View"
+                android:drawableRight="@drawable/ic_baseline_keyboard_double_arrow_right_24"
                 android:textSize="12sp"
                 android:id="@+id/y_status"
                 android:backgroundTint="@color/white"

@@ -84,7 +84,12 @@
         android:background="@drawable/et_custom"
         android:textSize="15sp" />
 
-
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="client"
+    android:visibility="gone"
+    android:id="@+id/cl"/>
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
@@ -95,7 +100,7 @@
         android:layout_marginRight="40dp"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="60dp"
-        android:backgroundTint="@color/colorTint"
+        android:backgroundTint="#db9135"
         android:bottomLeftRadius="20dp"
         android:bottomRightRadius="20dp"
         android:padding="15dp"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".utils.Worker.Design">
+    tools:context=".utils.Design2">
 
     <ImageView
         android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                     android:textSize="18sp"
                     />
                 <TextView
-                    android:id="@+id/p_department"
+                    android:id="@+id/pp_department"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Finance"
@@ -84,7 +84,7 @@
                     android:textSize="16sp"
                     />
                 <TextView
-                    android:id="@+id/p_urgency"
+                    android:id="@+id/pp_urgency"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="critical"
@@ -116,7 +116,7 @@
                     android:textSize="18sp"
                     />
                 <TextView
-                    android:id="@+id/p_status"
+                    android:id="@+id/pp_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="weed344"
@@ -182,7 +182,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/p_name"
+                android:id="@+id/pp_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -190,7 +190,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/p_date"
+                android:id="@+id/pp_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -198,7 +198,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/p_e_date"
+                android:id="@+id/pp_e_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -213,29 +213,42 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="20dp"
-        android:id="@+id/p_desc"
+        android:id="@+id/pp_desc"
         android:text="Full Description"
         android:layout_marginHorizontal="20dp"
         android:paddingHorizontal="10dp"
         android:paddingTop="5dp"
         android:scrollbars="vertical"
         />
+    <Button
+        android:id="@+id/pppp_button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="10dp"
+        android:layout_marginHorizontal="100dp"
+        android:background="@drawable/login_button_bk"
+        android:backgroundTint="@color/colorTint"
+        android:text="Complete"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        android:layout_marginTop="30dp"
+        android:textSize="18sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="80dp"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/p_button"
+            android:id="@+id/pp_button"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:paddingLeft="10dp"
             android:layout_marginHorizontal="100dp"
             android:background="@drawable/login_button_bk"
             android:backgroundTint="@color/colorTint"
-            android:text="Assign"
+            android:text="Accept"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </LinearLayout>

@@ -18,6 +18,12 @@
         android:layout_marginStart="25dp"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="30dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tr"
+        android:visibility="gone"
+        />
 
     <TextView
         android:id="@+id/tv_subtitle"
@@ -27,7 +33,7 @@
         android:textSize="17sp"
         android:layout_marginStart="25dp"
         android:layout_marginBottom="10dp"/>
-   <!-- <LinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -46,17 +52,18 @@
             android:gravity="center"
             android:textColor="@color/black"
             android:layout_marginBottom="0dp"
+            android:visibility="gone"
             android:text="Choose a user"
             android:textSize="17sp" />
 
         <Spinner
-            android:id="@+id/spinnerr"
+            android:id="@+id/spinn"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
 
             />
-    </LinearLayout>-->
+    </LinearLayout>
 
     <EditText
         android:id="@+id/et_name"

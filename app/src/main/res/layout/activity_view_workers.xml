@@ -4,50 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".utils.Worker.Dashboard">
+    android:orientation="vertical"
+    tools:context=".utils.Admin.ViewWorkers">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textv"
-        android:visibility="visible"
+        android:id="@+id/text"
+        android:visibility="gone"
         />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="#db9135"
-        android:padding="5dp">
 
-        <ImageView
-            android:id="@+id/profiles"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_gravity="left"
-            android:layout_marginLeft="0dp"
-            android:src="@drawable/people" />
 
-        <TextView
-            android:id="@+id/usern"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="Username"
-            android:textSize="20sp"
-            android:textStyle="bold" />
 
-    </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
         android:layout_marginBottom="55dp">
-
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/recyclerr"
+            android:id="@+id/recyclerrrr"
             android:layout_marginTop="5dp"
 
             />
@@ -55,7 +30,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
@@ -64,5 +39,5 @@
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
         app:labelVisibilityMode="labeled"
-        app:menu="@menu/next" />
+        app:menu="@menu/work"/>
 </RelativeLayout>

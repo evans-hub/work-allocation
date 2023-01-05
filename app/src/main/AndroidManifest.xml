@@ -13,14 +13,70 @@
         android:theme="@style/Theme.WorkAllocation"
         tools:targetApi="31">
         <activity
-            android:name=".utils.UserDashboard"
+            android:name=".utils.User.Design4"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".utils.AdminDashboard"
+            android:name=".utils.Admin.DesignActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".utils.Admin.AllWorkers"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".utils.Search"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".utils.Admin.ViewWorkers"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".utils.Design3"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".utils.Design2"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".utils.ProfileActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".utils.User.UserDashboard"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".utils.Admin.AdminDashboard"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -41,42 +97,42 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".utils.Dashboard"
+            android:name=".utils.Worker.Dashboard"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".utils.Design"
+            android:name=".utils.Worker.Design"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".utils.Available"
+            android:name=".utils.Admin.Available"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".utils.ViewActivity"
+            android:name=".utils.Admin.ViewActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".utils.Workers"
+            android:name=".utils.Admin.Workers"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".utils.Task"
+            android:name=".utils.User.Task"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

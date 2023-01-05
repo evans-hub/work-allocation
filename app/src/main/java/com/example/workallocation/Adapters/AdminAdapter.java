@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.workallocation.Entity.TaskModel;
 import com.example.workallocation.R;
 import com.example.workallocation.utils.Design2;
-import com.example.workallocation.utils.User.Design4;
+import com.example.workallocation.utils.Design3;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,7 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-public class DashAdapter extends RecyclerView.Adapter<DashAdapter.MyViewHolder> {
+
+public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.MyViewHolder> {
     Context context;
     ArrayList<TaskModel> list;
     FirebaseAuth mAuth;
@@ -32,34 +33,33 @@ public class DashAdapter extends RecyclerView.Adapter<DashAdapter.MyViewHolder> 
 
 
 
-    public DashAdapter(Context context2, ArrayList<TaskModel> list2) {
+    public AdminAdapter(Context context2, ArrayList<TaskModel> list2) {
         this.context = context2;
         this.list = list2;
     }
 
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(this.context).inflate(R.layout.dash, parent, false));
+    public AdminAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new MyViewHolder(LayoutInflater.from(this.context).inflate(R.layout.listing, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
         TaskModel model = this.list.get(position);
         holder.mname.setText(model.getTitle());
         holder.mdesc.setText(model.getDescription());
         holder.mstart.setText(model.getStartdate());
         holder.mend.setText(" - "+model.getEnddate());
         mAuth=FirebaseAuth.getInstance();
-        DatabaseReference referencesfgf =  FirebaseDatabase.getInstance().getReference("usertask").child(mAuth.getCurrentUser().getUid());
-        referencesfgf.child(model.getTaskId()).child("assigned_to").addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference referencesfgf =  FirebaseDatabase.getInstance().getReference("alltasks").child(model.getTaskId());
+        referencesfgf.child("assigned_to").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 subjects=snapshot.getValue(String.class);
                 if (subjects.equalsIgnoreCase("accepted")){
-                    holder.btn.setText("Complete");
+                    holder.btn.setText("Accepted");
                 }
                 else if(subjects.equalsIgnoreCase("Assigned")){
-                    holder.btn.setText("Accept");
+                    holder.btn.setText("Assigned");
                 }
                 else if(subjects.equalsIgnoreCase("Completed")){
                     holder.btn.setText("Completed");
@@ -75,7 +75,7 @@ public class DashAdapter extends RecyclerView.Adapter<DashAdapter.MyViewHolder> 
             @Override
             public void onClick(View view) {
 
-                Intent intent=new Intent(context.getApplicationContext(), Design4.class);
+                Intent intent=new Intent(context.getApplicationContext(), Design3.class);
                 intent.putExtra("id",model.getTaskId());
                 intent.putExtra("dep",model.getDepartment());
                 intent.putExtra("desc",model.getDescription());
@@ -87,8 +87,9 @@ public class DashAdapter extends RecyclerView.Adapter<DashAdapter.MyViewHolder> 
             }
         });
 
-
     }
+
+
 
 
     public int getItemCount() {
@@ -110,3 +111,4 @@ public class DashAdapter extends RecyclerView.Adapter<DashAdapter.MyViewHolder> 
         }
     }
 }
+
