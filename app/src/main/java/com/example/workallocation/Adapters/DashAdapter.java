@@ -51,7 +51,7 @@ public class DashAdapter extends RecyclerView.Adapter<DashAdapter.MyViewHolder> 
         holder.mend.setText(" - "+model.getEnddate());
         mAuth=FirebaseAuth.getInstance();
         DatabaseReference referencesfgf =  FirebaseDatabase.getInstance().getReference("usertask").child(mAuth.getCurrentUser().getUid());
-        referencesfgf.child(model.getTaskId()).child("assigned_to").addListenerForSingleValueEvent(new ValueEventListener() {
+        referencesfgf.child(model.getTaskId()).child("status").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 subjects=snapshot.getValue(String.class);

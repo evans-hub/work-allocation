@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/listing_namex"
+                    android:id="@+id/listing_name"
                     android:layout_width="258dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="2dp"
@@ -54,7 +54,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/listing_descx"
+                    android:id="@+id/listing_desc"
                     android:layout_width="match_parent"
                     android:layout_height="73dp"
                     android:textColor="@android:color/black"
@@ -73,7 +73,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/lll_startx"
+                    android:id="@+id/lll_start"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="12:30 AM - "
@@ -81,7 +81,7 @@
                     android:textSize="16sp"/>
 
                 <TextView
-                    android:id="@+id/lll_endx"
+                    android:id="@+id/lll_end"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="02:30 PM"

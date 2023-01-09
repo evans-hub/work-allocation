@@ -43,7 +43,7 @@ public class Dashboard extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         s1 = getSharedPreferences("MySharedPref", 0).getString("id_number", "");
-        textView.setText(s1);
+        textView.setText("idid"+s1);
         String nn=mAuth.getCurrentUser().getEmail();
         which.setText(nn);
 

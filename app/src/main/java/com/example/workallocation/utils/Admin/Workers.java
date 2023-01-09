@@ -32,7 +32,7 @@ public class Workers extends AppCompatActivity implements AdapterView.OnItemSele
     private EditText nam, pass, phon, nation, ema;
     Button btn;
     FirebaseAuth mAuth;
-    DatabaseReference reference, refer, ref,referal;
+    DatabaseReference reference,reference2, refer, ref,referal;
     ProgressDialog loading;
     String department;
     String[] depart = {"Finance", "Inquiries", "Technical", "Admin", "Others"};
@@ -75,6 +75,7 @@ public class Workers extends AppCompatActivity implements AdapterView.OnItemSele
         ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin.setAdapter(ad);
         reference = FirebaseDatabase.getInstance().getReference("workers");
+        reference2 = FirebaseDatabase.getInstance().getReference("users");
         refer = FirebaseDatabase.getInstance().getReference("available");
         ref = FirebaseDatabase.getInstance().getReference("everyworker");
         referal = FirebaseDatabase.getInstance().getReference("workemail");
@@ -148,6 +149,7 @@ public class Workers extends AppCompatActivity implements AdapterView.OnItemSele
                                             if (task.isSuccessful()) {
                                                 referal.child(mAuth.getCurrentUser().getUid()).setValue(model);
                                                 ref.child(id).setValue(model);
+                                                reference2.setValue(model);
                                                 loading.dismiss();
                                                 Toast.makeText(Workers.this, "Worker Registered Successfully", Toast.LENGTH_SHORT).show();
 

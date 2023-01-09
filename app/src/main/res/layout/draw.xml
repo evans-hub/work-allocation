@@ -24,16 +24,23 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
             android:orientation="vertical">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/d_day"
-                android:text="Tue"
                 android:layout_gravity="center"
-                android:textSize="18sp"
+                android:text="Due"
+                android:textStyle="bold"
                 android:textColor="@android:color/black"
-                android:alpha="0.5"/>
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/d_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:alpha="0.5"
+                android:text="Tue"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -91,14 +98,27 @@
                     android:background="@drawable/time"/>
 
             </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Task Description"
-                android:id="@+id/d_description"
-                android:textSize="14sp"
-                android:textColor="@android:color/black"/>
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description  "
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Task Description"
+                    android:id="@+id/d_description"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black"/>
+            </LinearLayout>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"

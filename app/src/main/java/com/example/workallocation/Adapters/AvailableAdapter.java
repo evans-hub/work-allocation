@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class AvailableAdapter extends RecyclerView.Adapter<AvailableAdapter.MyViewHolder> {
     Context context;
     ArrayList<workModel> list;
-    String assignx,depx,endx,startx,filex,datex,titlex,descx,state,sdesc;
+    String assignx,depx,endx,startx,filex,datex,titlex,descx,state,sdesc,status;
 
 
 
@@ -68,6 +68,7 @@ filex=snapshot.child("file").getValue(String.class);
 datex=snapshot.child("taskdate").getValue(String.class);
 titlex=snapshot.child("title").getValue(String.class);
 sdesc=snapshot.child("s_desc").getValue(String.class);
+status=snapshot.child("status").getValue(String.class);
                     }
 
                     @Override
@@ -78,9 +79,9 @@ sdesc=snapshot.child("s_desc").getValue(String.class);
                 refer.child("assigned_to").setValue(model.getId()).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        TaskModel mode = new TaskModel(titlex, descx, depx, startx, endx, datex, taskId, sdesc, assignx,filex);
-                        DatabaseReference referal = FirebaseDatabase.getInstance().getReference("everyworker").child(model.getId());
-                        referal.child(taskId).setValue(mode);
+                        TaskModel mode = new TaskModel(titlex, descx, depx, startx, endx, datex, taskId, sdesc, assignx,filex,status);
+                        DatabaseReference referal = FirebaseDatabase.getInstance().getReference("everyworker").child(model.getId()).child(taskId);
+                        referal.setValue(mode);
                         DatabaseReference referall = FirebaseDatabase.getInstance().getReference("workers").child(model.getId());
                         referall.child("availability").setValue("Unavailable");
                         referal.child(taskId).child(model.getId()).setValue("Assigned");

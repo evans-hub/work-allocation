@@ -51,7 +51,7 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.MyViewHolder
         holder.mend.setText(" - "+model.getEnddate());
         mAuth=FirebaseAuth.getInstance();
         DatabaseReference referencesfgf =  FirebaseDatabase.getInstance().getReference("alltasks").child(model.getTaskId());
-        referencesfgf.child("assigned_to").addListenerForSingleValueEvent(new ValueEventListener() {
+        referencesfgf.child("status").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 subjects=snapshot.getValue(String.class);

@@ -57,8 +57,8 @@ public class Task extends AppCompatActivity {
     String id;
     FirebaseAuth mAuth;
     AlertDialog.Builder builds;
-    TextView uploads;
-    String myurl;
+    TextView uploads,textupload;
+    String myurl,filename;
     @Override
     protected void onStart() {
         super.onStart();
@@ -85,6 +85,7 @@ public class Task extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
         uploads=findViewById(R.id.uploading);
+        textupload=findViewById(R.id.uploaded);
         uploads.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -161,7 +162,7 @@ public class Task extends AppCompatActivity {
         finance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tt.setText("finance");
+                tt.setText("license");
                 q.setVisibility(View.VISIBLE);
                 w.setVisibility(View.GONE);
                 e.setVisibility(View.GONE);
@@ -172,7 +173,7 @@ public class Task extends AppCompatActivity {
         others.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tt.setText("others");
+                tt.setText("headquarters");
                 q.setVisibility(View.GONE);
                 w.setVisibility(View.GONE);
                 e.setVisibility(View.GONE);
@@ -183,7 +184,7 @@ public class Task extends AppCompatActivity {
         inquire.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tt.setText("inquiries");
+                tt.setText("ict");
                 q.setVisibility(View.GONE);
                 w.setVisibility(View.VISIBLE);
                 e.setVisibility(View.GONE);
@@ -194,7 +195,7 @@ public class Task extends AppCompatActivity {
         tech.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tt.setText("technical");
+                tt.setText("education");
                 q.setVisibility(View.GONE);
                 w.setVisibility(View.GONE);
                 e.setVisibility(View.GONE);
@@ -205,7 +206,7 @@ public class Task extends AppCompatActivity {
         admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tt.setText("admin");
+                tt.setText("trade");
                 q.setVisibility(View.GONE);
                 w.setVisibility(View.GONE);
                 e.setVisibility(View.VISIBLE);
@@ -252,7 +253,8 @@ public class Task extends AppCompatActivity {
         String s_description = nn.getText().toString().trim();
         Date dat = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy,HH:mm:ss");
-        String date = sdf.format(dat).toString();
+        String date = String.valueOf(System.currentTimeMillis());
+
         String taskId = sb.toString();
         SimpleDateFormat sdff = new SimpleDateFormat("dd-MM-yyyy");
         Date strDate = sdff.parse(start);
@@ -281,7 +283,8 @@ public class Task extends AppCompatActivity {
                 dateno = String.valueOf(LocalDate.now().getDayOfMonth());
             }
             String assign = "unassigned";
-            TaskModel model = new TaskModel(tasktitle, taskdesc, category, start, end, date, taskId, s_description, assign,myurl);
+            String status = "unassigned";
+            TaskModel model = new TaskModel(tasktitle, taskdesc, category, start, end, date, taskId, s_description, assign,myurl,status);
             reference.child(taskId).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {
@@ -315,11 +318,10 @@ public class Task extends AppCompatActivity {
             final String timestamp = "" + System.currentTimeMillis();
             StorageReference storageReference = FirebaseStorage.getInstance().getReference();
             final String messagePushID = timestamp;
-            Toast.makeText(Task.this, imageuri.toString(), Toast.LENGTH_SHORT).show();
+
 
             // Here we are uploading the pdf in firebase storage with the name of current time
             final StorageReference filepath = storageReference.child(messagePushID + "." + "pdf");
-            Toast.makeText(Task.this, filepath.getName(), Toast.LENGTH_SHORT).show();
             filepath.putFile(imageuri).continueWithTask(new Continuation() {
                 @Override
                 public Object then(@NonNull com.google.android.gms.tasks.Task task) throws Exception {
@@ -336,9 +338,11 @@ public class Task extends AppCompatActivity {
                         // dialog box will be dismissed
                         dialog.dismiss();
                         Uri uri = task.getResult();
-
+                        filename = uri.getLastPathSegment();
                         myurl = uri.toString();
-                        Toast.makeText(Task.this, "Uploaded Successfully"+myurl, Toast.LENGTH_SHORT).show();
+                        textupload.setVisibility(View.VISIBLE);
+                        textupload.setText(filename);
+                        uploads.setText("File Uploaded");
                     } else {
                         dialog.dismiss();
                         Toast.makeText(Task.this, "UploadedFailed", Toast.LENGTH_SHORT).show();

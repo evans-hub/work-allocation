@@ -1,6 +1,7 @@
 package com.example.workallocation.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workallocation.Entity.TaskModel;
 import com.example.workallocation.R;
+import com.example.workallocation.utils.Design2;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -31,7 +33,7 @@ public Userdashboardadapter(Context context2, ArrayList<TaskModel> list2) {
         }
 
 public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(this.context).inflate(R.layout.listuser, parent, false));
+        return new MyViewHolder(LayoutInflater.from(this.context).inflate(R.layout.listing, parent, false));
         }
 
 @Override
@@ -65,7 +67,7 @@ public void onCancelled(@NonNull DatabaseError error) {
 
         }
         });*/
-        /*holder.btn.setOnClickListener(new View.OnClickListener() {
+        holder.btn.setOnClickListener(new View.OnClickListener() {
 @Override
 public void onClick(View view) {
 
@@ -79,7 +81,7 @@ public void onClick(View view) {
 
         context.startActivity(intent);
         }
-        });*/
+        });
 
 
         }
@@ -94,10 +96,10 @@ public static class MyViewHolder extends RecyclerView.ViewHolder {
     Button btn;
     public MyViewHolder(View itemView) {
         super(itemView);
-        this.mname = (TextView) itemView.findViewById(R.id.listing_namex);
-        this.mdesc = (TextView) itemView.findViewById(R.id.listing_descx);
-        this.mstart = (TextView) itemView.findViewById(R.id.lll_startx);
-        this.mend = (TextView) itemView.findViewById(R.id.lll_endx);
+        this.mname = (TextView) itemView.findViewById(R.id.listing_name);
+        this.mdesc = (TextView) itemView.findViewById(R.id.listing_desc);
+        this.mstart = (TextView) itemView.findViewById(R.id.lll_start);
+        this.mend = (TextView) itemView.findViewById(R.id.lll_end);
         btn=itemView.findViewById(R.id.accept);
 
         mdesc.setMovementMethod(new ScrollingMovementMethod());

@@ -48,7 +48,7 @@ public class UserDashboard extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 idnumber=snapshot.getValue(String.class);
                 textView.setText(idnumber);
-                Toast.makeText(UserDashboard.this, "id number"+idnumber, Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserDashboard.this, "worker"+idnumber, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -95,8 +95,8 @@ public class UserDashboard extends AppCompatActivity {
             }
         });
         this.loading.show();
-        references = FirebaseDatabase.getInstance().getReference("tasks")/*.child(textView.getText().toString())*/;
-        this.references.addValueEventListener(new ValueEventListener() {
+        references = FirebaseDatabase.getInstance().getReference("everyworker");
+        this.references.child(textView.getText().toString()).addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     loading.dismiss();

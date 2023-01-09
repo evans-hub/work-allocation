@@ -24,6 +24,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -33,10 +34,11 @@ ImageView img;
 TextView task,user,comp,pend;
 FirebaseAuth mAuth;
 AdminAdapter adapter;
-DatabaseReference references;
+Query references;
 RecyclerView recyclerView;
     ArrayList<TaskModel> list,listing;
     ProgressDialog loading;
+    String string;
 
     @Override
     protected void onStart() {
@@ -101,7 +103,7 @@ RecyclerView recyclerView;
             }
         });
         this.loading.show();
-        references=FirebaseDatabase.getInstance().getReference("alltasks");
+        references=FirebaseDatabase.getInstance().getReference("alltasks").orderByChild("taskdate");
         this.references.addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
