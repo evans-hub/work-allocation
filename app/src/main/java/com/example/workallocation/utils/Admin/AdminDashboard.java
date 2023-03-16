@@ -103,7 +103,7 @@ RecyclerView recyclerView;
             }
         });
         this.loading.show();
-        references=FirebaseDatabase.getInstance().getReference("alltasks").orderByChild("taskdate");
+        references=FirebaseDatabase.getInstance().getReference("tasks").orderByChild("taskdate");
         this.references.addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {

@@ -1,8 +1,26 @@
 package com.example.workallocation.Entity;
 
 public class workModel {
-    private String name,email,phone,id,dep,availability;
+    private String name,email,phone,id,dep,availability,uid;
 
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public workModel(String name, String email, String phone, String id, String dep, String availability, String uid) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.id = id;
+        this.dep = dep;
+        this.availability = availability;
+        this.uid = uid;
+    }
 
     public workModel(String name, String email, String phone, String id, String dep, String availability) {
         this.name = name;

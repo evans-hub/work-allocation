@@ -17,13 +17,18 @@ import com.example.workallocation.R;
 import com.example.workallocation.utils.Design2;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Userdashboardadapter extends RecyclerView.Adapter<Userdashboardadapter.MyViewHolder> {
         Context context;
         ArrayList<TaskModel> list;
         FirebaseAuth mAuth;
         String subjects;
+    Date endDate;
+    Date end;
 
 
 
@@ -45,6 +50,19 @@ public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.mstart.setText(model.getStartdate());
         holder.mend.setText(" - "+model.getEnddate());
         mAuth=FirebaseAuth.getInstance();
+    SimpleDateFormat sdff = new SimpleDateFormat("dd-MM-yyyy");
+    end=new Date();
+    try {
+        endDate = sdff.parse(model.getEnddate());
+        end = sdff.parse(String.valueOf(end));
+    } catch (ParseException e) {
+        e.printStackTrace();
+    }
+
+
+    if (endDate.before(end)) {
+        holder.due.setVisibility(View.VISIBLE);
+    }
         /*
         DatabaseReference referencesfgf =  FirebaseDatabase.getInstance().getReference("usertask").child(mAuth.getCurrentUser().getUid());
         referencesfgf.child(model.getTaskId()).child("assigned_to").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -78,6 +96,8 @@ public void onClick(View view) {
         intent.putExtra("name",model.getTitle());
         intent.putExtra("start",model.getStartdate());
         intent.putExtra("end",model.getEnddate());
+        intent.putExtra("file",model.getFile());
+        intent.putExtra("uid",model.getUid());
 
         context.startActivity(intent);
         }
@@ -92,7 +112,7 @@ public int getItemCount() {
         }
 
 public static class MyViewHolder extends RecyclerView.ViewHolder {
-    TextView mname,mdesc,mstart,mend;
+    TextView mname,mdesc,mstart,mend,due;
     Button btn;
     public MyViewHolder(View itemView) {
         super(itemView);
@@ -101,6 +121,7 @@ public static class MyViewHolder extends RecyclerView.ViewHolder {
         this.mstart = (TextView) itemView.findViewById(R.id.lll_start);
         this.mend = (TextView) itemView.findViewById(R.id.lll_end);
         btn=itemView.findViewById(R.id.accept);
+        due=itemView.findViewById(R.id.show_due);
 
         mdesc.setMovementMethod(new ScrollingMovementMethod());
     }

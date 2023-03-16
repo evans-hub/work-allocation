@@ -45,20 +45,20 @@ public class Available extends AppCompatActivity {
         tt=findViewById(R.id.text);
         final BottomNavigationView navigationView = (BottomNavigationView) findViewById(R.id.navigation);
         String dep=getIntent().getStringExtra("dep");
-        if(dep.equalsIgnoreCase("finance")){
-            tt.setText("Finance");
+        if(dep.equalsIgnoreCase("license")){
+            tt.setText("License");
         }
-        if(dep.equalsIgnoreCase("inquiries")){
-            tt.setText("Inquiries");
+        if(dep.equalsIgnoreCase("ict")){
+            tt.setText("Ict");
         }
-        if(dep.equalsIgnoreCase("others")){
-            tt.setText("Others");
+        if(dep.equalsIgnoreCase("trade")){
+            tt.setText("Trade");
         }
-        if(dep.equalsIgnoreCase("technical")){
-            tt.setText("Technical");
+        if(dep.equalsIgnoreCase("education")){
+            tt.setText("Education");
         }
-        if(dep.equalsIgnoreCase("admin")){
-            tt.setText("Admin");
+        if(dep.equalsIgnoreCase("headquarters")){
+            tt.setText("Headquarters");
         }
         path=tt.getText().toString().trim();
         reference = FirebaseDatabase.getInstance().getReference("available");
@@ -82,11 +82,16 @@ public class Available extends AppCompatActivity {
             }
         });
         this.loading.show();
+       /* if (!Available.this.isFinishing() && loading != null) {
+            loading.dismiss();
+        }*/
         this.reference.child(path).addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     list.add((workModel) dataSnapshot.getValue(workModel.class));
-                    loading.dismiss();
+                    if (!Available.this.isFinishing() && loading != null) {
+                        loading.dismiss();
+                    }
                 }
                 adapter.notifyDataSetChanged();
                 if (Available.this.list.size() == 0) {

@@ -1,6 +1,11 @@
 package com.example.workallocation.utils;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
+import android.app.DownloadManager;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.example.workallocation.R;
@@ -9,6 +14,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -27,6 +33,7 @@ public class Home extends AppCompatActivity {
 
     ImageView upload;
     Uri imageuri = null;
+    private static final int PERMISSION_STORAGE_CODE = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,64 +46,40 @@ public class Home extends AppCompatActivity {
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent galleryIntent = new Intent();
-                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+                    if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_DENIED){
+                        Toast.makeText(Home.this, "Permission Denied", Toast.LENGTH_SHORT).show();
+                        String[] permissions={Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
-                // We will be redirected to choose pdf
-                galleryIntent.setType("application/pdf");
-                startActivityForResult(galleryIntent, 1);
+                        requestPermissions(permissions, PERMISSION_STORAGE_CODE);
+                    }
+                    else{
+//start
+                        startDownloading();
+                    }
+                }
+                else {
+                    //start
+                    startDownloading();
+                }
             }
         });
     }
 
-    ProgressDialog dialog;
+    private void startDownloading() {
+        String url="https://firebasestorage.googleapis.com/v0/b/work-allocation-efb68.appspot.com/o/1673331960487.pdf?alt=media&token=5e08da35-605e-4b3a-92ce-5b8e570415f3";
+        DownloadManager.Request request=new DownloadManager.Request(Uri.parse(url));
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+        request.setTitle("Download");
+        request.setDescription("Downloading file...");
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
+        request.allowScanningByMediaScanner();
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,""+ System.currentTimeMillis());
+        DownloadManager manager=(DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+        manager.enqueue(request);
 
-            // Here we are initialising the progress dialog box
-            dialog = new ProgressDialog(this);
-            dialog.setMessage("Uploading");
-
-            // this will show message uploading
-            // while pdf is uploading
-            dialog.show();
-            imageuri = data.getData();
-            final String timestamp = "" + System.currentTimeMillis();
-            StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-            final String messagePushID = timestamp;
-            Toast.makeText(Home.this, imageuri.toString(), Toast.LENGTH_SHORT).show();
-
-            // Here we are uploading the pdf in firebase storage with the name of current time
-            final StorageReference filepath = storageReference.child(messagePushID + "." + "pdf");
-            Toast.makeText(Home.this, filepath.getName(), Toast.LENGTH_SHORT).show();
-            filepath.putFile(imageuri).continueWithTask(new Continuation() {
-                @Override
-                public Object then(@NonNull Task task) throws Exception {
-                    if (!task.isSuccessful()) {
-                        throw task.getException();
-                    }
-                    return filepath.getDownloadUrl();
-                }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    if (task.isSuccessful()) {
-                        // After uploading is done it progress
-                        // dialog box will be dismissed
-                        dialog.dismiss();
-                        Uri uri = task.getResult();
-                        String myurl;
-                        myurl = uri.toString();
-                        Toast.makeText(Home.this, "Uploaded Successfully"+myurl, Toast.LENGTH_SHORT).show();
-                    } else {
-                        dialog.dismiss();
-                        Toast.makeText(Home.this, "UploadedFailed", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        }
     }
+
+
+
 }

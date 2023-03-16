@@ -2,8 +2,31 @@ package com.example.workallocation.Entity;
 
 public class TaskModel {
     private String title,description, department,startdate,enddate,taskdate,taskId,s_desc,assigned_to,file;
-    private String status;
+    private String status,uid;
 
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public TaskModel(String title, String description, String department, String startdate, String enddate, String taskdate, String taskId, String s_desc, String assigned_to, String file, String status, String uid) {
+        this.title = title;
+        this.description = description;
+        this.department = department;
+        this.startdate = startdate;
+        this.enddate = enddate;
+        this.taskdate = taskdate;
+        this.taskId = taskId;
+        this.s_desc = s_desc;
+        this.assigned_to = assigned_to;
+        this.file = file;
+        this.status = status;
+        this.uid = uid;
+    }
 
     public TaskModel(String title, String description, String department, String startdate, String enddate, String taskdate, String taskId, String s_desc, String assigned_to, String file, String status) {
         this.title = title;

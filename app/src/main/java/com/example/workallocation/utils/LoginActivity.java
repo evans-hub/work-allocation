@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -159,6 +160,10 @@ String dep[]={"Admin","Client","Worker"};
                             if (task.isSuccessful()){
                                 mAuth=FirebaseAuth.getInstance();
                                 if (user.equalsIgnoreCase("admin")){
+                                    SharedPreferences.Editor myEdit = LoginActivity.this.getSharedPreferences("MySharedPref", 0).edit();
+                                    myEdit.putString("emailfromlogin", email);
+                                    myEdit.putString("passwordfromlogin", password);
+                                    myEdit.commit();
                                     Intent intent=new Intent(LoginActivity.this,AdminDashboard.class);
                                     startActivity(intent);
                                     loading.dismiss();
@@ -208,7 +213,7 @@ String dep[]={"Admin","Client","Worker"};
                                 loading.dismiss();
                                 finish();
                             } else if (user.equalsIgnoreCase("worker")) {
-                                Intent intent = new Intent(LoginActivity.this, Workers.class);
+                                Intent intent = new Intent(LoginActivity.this, UserDashboard.class);
                                 startActivity(intent);
                                 loading.dismiss();
                                 finish();

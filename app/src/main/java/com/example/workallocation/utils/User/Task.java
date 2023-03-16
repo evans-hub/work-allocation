@@ -284,7 +284,8 @@ public class Task extends AppCompatActivity {
             }
             String assign = "unassigned";
             String status = "unassigned";
-            TaskModel model = new TaskModel(tasktitle, taskdesc, category, start, end, date, taskId, s_description, assign,myurl,status);
+            String userid=mAuth.getCurrentUser().getUid();
+            TaskModel model = new TaskModel(tasktitle, taskdesc, category, start, end, date, taskId, s_description, assign,myurl,status,userid);
             reference.child(taskId).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull com.google.android.gms.tasks.Task<Void> task) {

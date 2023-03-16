@@ -83,6 +83,7 @@ public class DashAdapter extends RecyclerView.Adapter<DashAdapter.MyViewHolder> 
                 intent.putExtra("start",model.getStartdate());
                 intent.putExtra("end",model.getEnddate());
 
+
                 context.startActivity(intent);
             }
         });

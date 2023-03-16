@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.workallocation.utils.Worker.Design;
 import com.example.workallocation.Entity.TaskModel;
 import com.example.workallocation.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -32,6 +38,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     String dayofmonth;
     String month;
     String bb;
+    String subjects;
 
 
 
@@ -131,6 +138,29 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             holder.mhrs.setText(model.getStartdate());
             holder.mmins.setText(model.getTaskId());
             holder.msecs.setText(model.getAssigned_to());
+            DatabaseReference referencesfgf =  FirebaseDatabase.getInstance().getReference("tasks").child(model.getTaskId());
+            referencesfgf.child("status").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    subjects=snapshot.getValue(String.class);
+                    if (subjects.equalsIgnoreCase("unassigned")){
+                        holder.assign.setText("Assign");
+                    }
+                    else {
+                        holder.assigned.setVisibility(View.VISIBLE);
+                        holder.assign.setVisibility(View.GONE);
+                        holder.show.setText("Assigned To id no ");
+
+
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
             holder.assign.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -143,6 +173,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
                     intent.putExtra("end",model.getEnddate());
 
                     context.startActivity(intent);
+                }
+            });
+            holder.assigned.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(context, "Task already assigned", Toast.LENGTH_SHORT).show();
                 }
             });
         } catch (ParseException e) {
@@ -163,13 +199,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         TextView mplate;
         TextView mday;
         TextView mmonth;
-        TextView myr;
+        TextView myr,show;
         TextView mhrs,mmins,msecs;
-        Button assign;
+        Button assign,assigned;
 
 
         public MyViewHolder(View itemView) {
             super(itemView);
+            show=itemView.findViewById(R.id.avail_show);
             this.mname = (TextView) itemView.findViewById(R.id.d_title);
             this.mplate = (TextView) itemView.findViewById(R.id.d_description);
             this.mday = (TextView) itemView.findViewById(R.id.d_day);
@@ -179,6 +216,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             this.mmins = (TextView) itemView.findViewById(R.id.s_time);
             this.msecs = (TextView) itemView.findViewById(R.id.e_time);
             assign=itemView.findViewById(R.id.status);
+            assigned=itemView.findViewById(R.id.status1);
         }
     }
 }

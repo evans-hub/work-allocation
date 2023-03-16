@@ -35,7 +35,7 @@ public class Workers extends AppCompatActivity implements AdapterView.OnItemSele
     DatabaseReference reference,reference2, refer, ref,referal;
     ProgressDialog loading;
     String department;
-    String[] depart = {"Finance", "Inquiries", "Technical", "Admin", "Others"};
+    String[] depart = {"License", "Ict", "Trade", "Education", "Headquarters"};
 
   /*  @Override
     protected void onStart() {
@@ -134,11 +134,13 @@ public class Workers extends AppCompatActivity implements AdapterView.OnItemSele
         } else {
             loading.show();
             String availability = "available";
+
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        workModel model = new workModel(name, email, phone, id, department, availability);
+                        String uid=mAuth.getCurrentUser().getUid();
+                        workModel model = new workModel(name, email, phone, id, department, availability,uid);
                         reference.child(id).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
@@ -149,7 +151,7 @@ public class Workers extends AppCompatActivity implements AdapterView.OnItemSele
                                             if (task.isSuccessful()) {
                                                 referal.child(mAuth.getCurrentUser().getUid()).setValue(model);
                                                 ref.child(id).setValue(model);
-                                                reference2.setValue(model);
+                                                reference2.child(uid).setValue(model);
                                                 loading.dismiss();
                                                 Toast.makeText(Workers.this, "Worker Registered Successfully", Toast.LENGTH_SHORT).show();
 

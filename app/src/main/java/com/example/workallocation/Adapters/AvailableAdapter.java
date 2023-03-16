@@ -80,7 +80,7 @@ status=snapshot.child("status").getValue(String.class);
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         TaskModel mode = new TaskModel(titlex, descx, depx, startx, endx, datex, taskId, sdesc, assignx,filex,status);
-                        DatabaseReference referal = FirebaseDatabase.getInstance().getReference("everyworker").child(model.getId()).child(taskId);
+                        DatabaseReference referal = FirebaseDatabase.getInstance().getReference("everyworker").child(model.getUid()).child(taskId);
                         referal.setValue(mode);
                         DatabaseReference referall = FirebaseDatabase.getInstance().getReference("workers").child(model.getId());
                         referall.child("availability").setValue("Unavailable");

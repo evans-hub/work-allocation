@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".utils.Design2">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
 
     <ImageView
         android:layout_width="match_parent"
@@ -220,6 +230,15 @@
         android:paddingTop="5dp"
         android:scrollbars="vertical"
         />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:textColor="@color/black"
+        android:id="@+id/show"
+        />
     <Button
         android:id="@+id/pppp_button"
         android:layout_width="match_parent"
@@ -278,4 +297,6 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
     </LinearLayout>
+</LinearLayout>
+    </ScrollView>
 </LinearLayout>
