@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".utils.User.Design4">
+    tools:context=".utils.Admin.View_task_details_admin_dashboard">
 
     <ImageView
         android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                     android:textSize="18sp"
                     />
                 <TextView
-                    android:id="@+id/pp_departmentsp"
+                    android:id="@+id/pp_departments"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Finance"
@@ -84,7 +84,7 @@
                     android:textSize="16sp"
                     />
                 <TextView
-                    android:id="@+id/pp_urgencysp"
+                    android:id="@+id/pp_urgencys"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="critical"
@@ -116,7 +116,7 @@
                     android:textSize="18sp"
                     />
                 <TextView
-                    android:id="@+id/pp_statussp"
+                    android:id="@+id/pp_statuss"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="weed344"
@@ -182,7 +182,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/pp_namesp"
+                android:id="@+id/pp_names"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -190,7 +190,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/pp_datesp"
+                android:id="@+id/pp_dates"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -198,7 +198,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/pp_e_datesp"
+                android:id="@+id/pp_e_dates"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -213,7 +213,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="20dp"
-        android:id="@+id/pp_descsp"
+        android:id="@+id/pp_descs"
         android:text="Full Description"
         android:layout_marginHorizontal="20dp"
         android:paddingHorizontal="10dp"
@@ -228,7 +228,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/pp_buttonsp"
+            android:id="@+id/cpp_buttons"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:paddingLeft="10dp"

@@ -15,10 +15,10 @@ import android.widget.Toast;
 import com.example.workallocation.Adapters.AssignedAdapter;
 import com.example.workallocation.Entity.TaskModel;
 import com.example.workallocation.R;
+import com.example.workallocation.UI.ProfileActivity;
 import com.example.workallocation.utils.Admin.AdminDashboard;
-import com.example.workallocation.utils.Admin.AllWorkers;
-import com.example.workallocation.utils.Admin.ViewActivity;
-import com.example.workallocation.utils.Admin.ViewWorkers;
+import com.example.workallocation.utils.Admin.ViewAllWorkers;
+import com.example.workallocation.utils.Admin.ViewAllTasks;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -90,7 +90,7 @@ public class AssignedActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_profile:
-                        startActivity(new Intent(getApplicationContext(), ViewActivity.class));
+                        startActivity(new Intent(getApplicationContext(), ViewAllTasks.class));
                         finish();
                         return false;
                     case R.id.action_home:
@@ -102,7 +102,7 @@ public class AssignedActivity extends AppCompatActivity {
                         finish();
                         return false;
                     case R.id.task:
-                        startActivity(new Intent(getApplicationContext(), AllWorkers.class));
+                        startActivity(new Intent(getApplicationContext(), ViewAllWorkers.class));
                         finish();
                         return false;
                     default:

@@ -4,18 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.workallocation.Adapters.Adapter;
-import com.example.workallocation.Entity.TaskModel;
+import com.example.workallocation.Adapters.Viewallworkersadapter;
+import com.example.workallocation.Entity.workModel;
 import com.example.workallocation.R;
-import com.example.workallocation.utils.SplashScreen;
+import com.example.workallocation.UI.ProfileActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,26 +26,25 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ViewActivity extends AppCompatActivity {
+public class ViewAllWorkers extends AppCompatActivity {
     RecyclerView recyclerView;
-    Adapter adapter;
-    ArrayList<TaskModel> list;
+    Viewallworkersadapter adapter;
+    ArrayList<workModel> list;
     ProgressDialog loading;
     DatabaseReference reference;
-    TextView vail;
+    AlertDialog.Builder builds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view);
-        recyclerView=findViewById(R.id.recyclerview);
+        setContentView(R.layout.activity_all_workers);
+        recyclerView=findViewById(R.id.recy);
         loading = new ProgressDialog(this);
-        vail=findViewById(R.id.avail);
         final BottomNavigationView navigationView = (BottomNavigationView) findViewById(R.id.navigation);
-        reference = FirebaseDatabase.getInstance().getReference("tasks");
+        reference = FirebaseDatabase.getInstance().getReference("workers");
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         list = new ArrayList<>();
-        adapter = new Adapter(this,list);
+        adapter = new Viewallworkersadapter(this,list);
         recyclerView.setAdapter(adapter);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -64,30 +64,51 @@ public class ViewActivity extends AppCompatActivity {
         this.reference.addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    loading.dismiss();
-                    list.add((TaskModel) dataSnapshot.getValue(TaskModel.class));
+                    list.add((workModel) dataSnapshot.getValue(workModel.class));
+                    if (!ViewAllWorkers.this.isFinishing() && loading != null) {
+                        loading.dismiss();
+                    }
                 }
                 adapter.notifyDataSetChanged();
-                if (ViewActivity.this.list.size() == 0) {
-                    Toast.makeText(ViewActivity.this, "No tasks", Toast.LENGTH_SHORT).show();
+                if (ViewAllWorkers.this.list.size() == 0) {
+                    AlertDialog alert = ViewAllWorkers.this.builds.create();
+                    alert.setTitle("Available workers");
+                    alert.show();
                 }
                 int total = 0;
-                for (int i = 0; i < ViewActivity.this.list.size(); i++) {
+                for (int i = 0; i < ViewAllWorkers.this.list.size(); i++) {
                     total++;
-                }
-                vail.setText(String.valueOf(total) + " Available Tasks");
+                }/*
+                TextView textView = ViewActivity.this.tt;
+                textView.setText(String.valueOf(total) + " cars");*/
             }
 
             public void onCancelled(DatabaseError error) {
                 loading.dismiss();
-                Toast.makeText(ViewActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ViewAllWorkers.this, "Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+        this.builds = new AlertDialog.Builder(this);
+        this.builds.setMessage("Workers").setTitle("Available Workers");
+        this.builds.setMessage("There are no available workers now").setCancelable(false).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id2) {
+                Intent intent=new Intent(ViewAllWorkers.this, AdminDashboard.class);
+                startActivity(intent);
+                finish();
+            }
+        }).setPositiveButton("Add Worker", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent=new Intent(ViewAllWorkers.this, AddWorkers.class);
+                startActivity(intent);
+                finish();
             }
         });
         ((BottomNavigationView) findViewById(R.id.navigation)).setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_profile:
-                        startActivity(new Intent(getApplicationContext(), ViewActivity.class));
+                        startActivity(new Intent(getApplicationContext(), ViewAllTasks.class));
                         finish();
                         return false;
                     case R.id.action_home:
@@ -95,11 +116,11 @@ public class ViewActivity extends AppCompatActivity {
                         finish();
                         return false;
                     case R.id.settings:
-                        startActivity(new Intent(getApplicationContext(), SplashScreen.class));
+                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         finish();
                         return false;
                     case R.id.task:
-                        startActivity(new Intent(getApplicationContext(), AllWorkers.class));
+                        startActivity(new Intent(getApplicationContext(), AddWorkers.class));
                         finish();
                         return false;
                     default:

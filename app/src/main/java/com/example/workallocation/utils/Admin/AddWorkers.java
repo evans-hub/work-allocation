@@ -17,9 +17,7 @@ import android.widget.Toast;
 
 import com.example.workallocation.Entity.workModel;
 import com.example.workallocation.R;
-import com.example.workallocation.utils.ProfileActivity;
-import com.example.workallocation.utils.SplashScreen;
-import com.example.workallocation.utils.Worker.Dashboard;
+import com.example.workallocation.UI.ProfileActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -28,7 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class Workers extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class AddWorkers extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private EditText nam, pass, phon, nation, ema;
     Button btn;
     FirebaseAuth mAuth;
@@ -89,7 +87,7 @@ public class Workers extends AppCompatActivity implements AdapterView.OnItemSele
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_profile:
-                        startActivity(new Intent(getApplicationContext(), ViewActivity.class));
+                        startActivity(new Intent(getApplicationContext(), ViewAllTasks.class));
                         finish();
                         return false;
                     case R.id.action_home:
@@ -101,7 +99,7 @@ public class Workers extends AppCompatActivity implements AdapterView.OnItemSele
                         finish();
                         return false;
                     case R.id.task:
-                        startActivity(new Intent(getApplicationContext(), AllWorkers.class));
+                        startActivity(new Intent(getApplicationContext(), ViewAllWorkers.class));
                         finish();
                         return false;
                     default:
@@ -151,23 +149,31 @@ public class Workers extends AppCompatActivity implements AdapterView.OnItemSele
                                             if (task.isSuccessful()) {
                                                 referal.child(mAuth.getCurrentUser().getUid()).setValue(model);
                                                 ref.child(id).setValue(model);
-                                                reference2.child(uid).setValue(model);
+                                                reference2.child(uid).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        mAuth.signOut();
+                                                        Intent intent=new Intent(getApplicationContext(),AdminDashboard.class);
+                                                        startActivity(intent);
+                                                        finish();
+                                                    }
+                                                });
                                                 loading.dismiss();
-                                                Toast.makeText(Workers.this, "Worker Registered Successfully", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(AddWorkers.this, "Worker Registered Successfully", Toast.LENGTH_SHORT).show();
 
                                             } else {
-                                                Toast.makeText(Workers.this, "Error:" + task.getException().toString(), Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(AddWorkers.this, "Error:" + task.getException().toString(), Toast.LENGTH_SHORT).show();
 
                                             }
 
                                         }
                                     });
 
-                                    Intent intent = new Intent(Workers.this, AdminDashboard.class);
+                                    Intent intent = new Intent(AddWorkers.this, AdminDashboard.class);
                                     startActivity(intent);
                                     finish();
                                 } else {
-                                    Toast.makeText(Workers.this, "Error:" + task.getException().toString(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AddWorkers.this, "Error:" + task.getException().toString(), Toast.LENGTH_SHORT).show();
 
                                 }
 
@@ -175,7 +181,7 @@ public class Workers extends AppCompatActivity implements AdapterView.OnItemSele
                         });
 
                     } else {
-                        Toast.makeText(Workers.this, "Error: " + task.getException().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddWorkers.this, "Error: " + task.getException().toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });

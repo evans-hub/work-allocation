@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".utils.Design3">
+    tools:context=".utils.Admin.AssignWorkToWorkers">
 
     <ImageView
         android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                     android:textSize="18sp"
                     />
                 <TextView
-                    android:id="@+id/pp_departments"
+                    android:id="@+id/p_department"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Finance"
@@ -84,7 +84,7 @@
                     android:textSize="16sp"
                     />
                 <TextView
-                    android:id="@+id/pp_urgencys"
+                    android:id="@+id/p_urgency"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="critical"
@@ -116,7 +116,7 @@
                     android:textSize="18sp"
                     />
                 <TextView
-                    android:id="@+id/pp_statuss"
+                    android:id="@+id/p_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="weed344"
@@ -182,7 +182,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/pp_names"
+                android:id="@+id/p_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -190,7 +190,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/pp_dates"
+                android:id="@+id/p_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -198,7 +198,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/pp_e_dates"
+                android:id="@+id/p_e_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -213,7 +213,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="20dp"
-        android:id="@+id/pp_descs"
+        android:id="@+id/p_desc"
         android:text="Full Description"
         android:layout_marginHorizontal="20dp"
         android:paddingHorizontal="10dp"
@@ -224,18 +224,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="90dp"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/cpp_buttons"
+            android:id="@+id/p_button"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:paddingLeft="10dp"
             android:layout_marginHorizontal="100dp"
             android:background="@drawable/login_button_bk"
             android:backgroundTint="@color/colorTint"
-            android:text="Done"
+            android:text="Assign"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </LinearLayout>

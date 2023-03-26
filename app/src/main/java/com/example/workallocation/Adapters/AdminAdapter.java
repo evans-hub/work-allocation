@@ -1,6 +1,5 @@
 package com.example.workallocation.Adapters;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.text.method.ScrollingMovementMethod;
@@ -15,9 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workallocation.Entity.TaskModel;
 import com.example.workallocation.R;
-import com.example.workallocation.utils.Design2;
-import com.example.workallocation.utils.Design3;
-import com.example.workallocation.utils.User.Task;
+import com.example.workallocation.utils.Admin.View_task_details_admin_dashboard;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -96,7 +93,7 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.MyViewHolder
             @Override
             public void onClick(View view) {
 
-                Intent intent=new Intent(context.getApplicationContext(), Design3.class);
+                Intent intent=new Intent(context.getApplicationContext(), View_task_details_admin_dashboard.class);
                 intent.putExtra("id",model.getTaskId());
                 intent.putExtra("dep",model.getDepartment());
                 intent.putExtra("desc",model.getDescription());

@@ -13,7 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.workallocation.utils.Worker.Design;
+import com.example.workallocation.utils.Admin.AssignWorkToWorkers;
 import com.example.workallocation.Entity.TaskModel;
 import com.example.workallocation.R;
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +30,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
+public class ViewAllTasksAdapterr extends RecyclerView.Adapter<ViewAllTasksAdapterr.MyViewHolder> {
     Context context;
     ArrayList<TaskModel> list;
     int day;
@@ -42,7 +42,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
 
 
-    public Adapter(Context context2, ArrayList<TaskModel> list2) {
+    public ViewAllTasksAdapterr(Context context2, ArrayList<TaskModel> list2) {
         this.context = context2;
         this.list = list2;
     }
@@ -164,7 +164,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             holder.assign.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent=new Intent(context.getApplicationContext(), Design.class);
+                    Intent intent=new Intent(context.getApplicationContext(), AssignWorkToWorkers.class);
                     intent.putExtra("id",model.getTaskId());
                     intent.putExtra("dep",model.getDepartment());
                     intent.putExtra("desc",model.getDescription());

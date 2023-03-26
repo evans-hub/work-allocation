@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".utils.Admin.Available">
+    tools:context=".utils.Admin.Available_Workers_Per_Dep">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

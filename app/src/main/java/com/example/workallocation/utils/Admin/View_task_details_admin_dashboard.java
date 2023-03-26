@@ -1,8 +1,7 @@
-package com.example.workallocation.utils;
+package com.example.workallocation.utils.Admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -14,7 +13,7 @@ import com.example.workallocation.R;
 import com.example.workallocation.utils.Admin.AdminDashboard;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class Design3 extends AppCompatActivity {
+public class View_task_details_admin_dashboard extends AppCompatActivity {
     TextView name, urgency, start, end, dep, to, status;
     Button btn,btn1;
     FirebaseAuth mAuth;
@@ -22,7 +21,7 @@ public class Design3 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_design3);
+        setContentView(R.layout.activity_view_task_details_admin_dashboard);
         btn = findViewById(R.id.cpp_buttons);
         name = findViewById(R.id.pp_names);
         mAuth=FirebaseAuth.getInstance();

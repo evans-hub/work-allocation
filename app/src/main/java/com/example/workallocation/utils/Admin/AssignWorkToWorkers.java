@@ -1,4 +1,4 @@
-package com.example.workallocation.utils.User;
+package com.example.workallocation.utils.Admin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,26 +10,23 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.workallocation.R;
-import com.example.workallocation.utils.Admin.Available;
-import com.example.workallocation.utils.Worker.Dashboard;
-import com.example.workallocation.utils.Worker.Design;
 
-public class Design4 extends AppCompatActivity {
+public class AssignWorkToWorkers extends AppCompatActivity {
     TextView name, urgency, start, end, dep, to, status;
     Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_design5);
-        btn = findViewById(R.id.pp_buttonsp);
-        name = findViewById(R.id.pp_namesp);
-        urgency = findViewById(R.id.pp_urgencysp);
-        start = findViewById(R.id.pp_datesp);
-        end = findViewById(R.id.pp_e_datesp);
-        status = findViewById(R.id.pp_statussp);
-        dep = findViewById(R.id.pp_departmentsp);
-        to = findViewById(R.id.pp_descsp);
+        setContentView(R.layout.activity_assign_work_to_workers);
+        btn = findViewById(R.id.p_button);
+        name = findViewById(R.id.p_name);
+        urgency = findViewById(R.id.p_urgency);
+        start = findViewById(R.id.p_date);
+        end = findViewById(R.id.p_e_date);
+        status = findViewById(R.id.p_status);
+        dep = findViewById(R.id.p_department);
+        to = findViewById(R.id.p_desc);
         to.setMovementMethod(new ScrollingMovementMethod());
 
 
@@ -51,9 +48,10 @@ public class Design4 extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(Design4.this, Dashboard.class);
+                Intent intent=new Intent(AssignWorkToWorkers.this, Available_Workers_Per_Dep.class);
+                intent.putExtra("id",stu);
+                intent.putExtra("dep",de);
                 startActivity(intent);
-                finish();
             }
         });
 

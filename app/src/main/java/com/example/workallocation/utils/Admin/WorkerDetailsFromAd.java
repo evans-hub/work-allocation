@@ -5,16 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.workallocation.R;
-import com.example.workallocation.utils.Worker.Dashboard;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class DesignActivity extends AppCompatActivity {
+public class WorkerDetailsFromAd extends AppCompatActivity {
     TextView name, urgency, start, end, dep, to, status;
     Button btn,btn1;
     AlertDialog.Builder builds;
@@ -23,7 +21,7 @@ public class DesignActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_design4);
+        setContentView(R.layout.activity_view_worker_details_from_ad);
         btn = findViewById(R.id.button_p);
         name = findViewById(R.id.name_p);
         mAuth=FirebaseAuth.getInstance();

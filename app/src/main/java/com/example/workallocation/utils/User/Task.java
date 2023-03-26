@@ -22,9 +22,6 @@ import android.widget.Toast;
 
 import com.example.workallocation.Entity.TaskModel;
 import com.example.workallocation.R;
-import com.example.workallocation.utils.Admin.ViewActivity;
-import com.example.workallocation.utils.Home;
-import com.example.workallocation.utils.Worker.Dashboard;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -86,6 +83,7 @@ public class Task extends AppCompatActivity {
         setContentView(R.layout.activity_task);
         uploads=findViewById(R.id.uploading);
         textupload=findViewById(R.id.uploaded);
+/*
         uploads.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,6 +95,7 @@ public class Task extends AppCompatActivity {
                 startActivityForResult(galleryIntent, 1);
             }
         });
+*/
         q = findViewById(R.id.q1);
         w = findViewById(R.id.q2);
         e = findViewById(R.id.q3);
@@ -120,7 +119,7 @@ public class Task extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Task.this, Dashboard.class);
+                Intent intent = new Intent(Task.this, UserDashboard.class);
                 startActivity(intent);
             }
         });
@@ -294,7 +293,7 @@ public class Task extends AppCompatActivity {
                     Toast.makeText(Task.this, "Task created successfully", Toast.LENGTH_SHORT).show();
 
                     re.child(taskId).setValue(model);
-                    Intent intent = new Intent(Task.this, Dashboard.class);
+                    Intent intent = new Intent(Task.this, UserDashboard.class);
                     startActivity(intent);
                     finish();
                 }
@@ -303,7 +302,7 @@ public class Task extends AppCompatActivity {
 
     }
     ProgressDialog dialog;
-    @Override
+  /*  @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
@@ -351,5 +350,5 @@ public class Task extends AppCompatActivity {
                 }
             });
         }
-    }
+    }*/
 }

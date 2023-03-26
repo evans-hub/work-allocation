@@ -1,4 +1,4 @@
-package com.example.workallocation.utils;
+package com.example.workallocation.utils.Worker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,7 +25,6 @@ import android.widget.Toast;
 import com.example.workallocation.Entity.Uploads;
 import com.example.workallocation.Entity.workModel;
 import com.example.workallocation.R;
-import com.example.workallocation.utils.User.UserDashboard;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,11 +34,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.auth.User;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-public class Design2 extends AppCompatActivity {
+public class AcceptingDesign extends AppCompatActivity {
     TextView name, urgency, start, end, dep, to, status, shows;
     Button btn, btn1, btn2, btn3;
     AlertDialog.Builder builds, builder;
@@ -88,7 +86,7 @@ String fil,uid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_design2);
+        setContentView(R.layout.activity_accepting_design);
         btn = findViewById(R.id.pp_button);
         shows = findViewById(R.id.show);
         btn1 = findViewById(R.id.pppp_button);
@@ -134,24 +132,24 @@ String fil,uid;
                 data.child("status").setValue("accepted");
                 reff.removeValue();
                 //
-                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+               /* if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
                     if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_DENIED){
-                        Toast.makeText(Design2.this, "Permission Denied", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AcceptingDesign.this, "Permission Denied", Toast.LENGTH_SHORT).show();
                         String[] permissions={Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
                         requestPermissions(permissions, PERMISSION_STORAGE_CODE);
                     }
                     else{
 //start
-                        startDownloading();
+                       // startDownloading();
                     }
                 }
                 else {
                     //start
-                    startDownloading();
-                }
+                   // startDownloading();
+                }*/
                 //
-                AlertDialog alert = Design2.this.builds.create();
+                AlertDialog alert = AcceptingDesign.this.builds.create();
                 alert.setTitle("Accepted Task");
                 alert.show();
             }
@@ -185,23 +183,23 @@ String fil,uid;
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("available").child(de).child(s1);
                 workModel workModel = new workModel(names, email, phone, id, deps, avail);
                 ref.setValue(workModel);
-                Intent intent=new Intent(getApplicationContext(), UserDashboard.class);
+                Intent intent=new Intent(getApplicationContext(), WorkerDashboard.class);
                 startActivity(intent);
             }
         });
-        btn2.setOnClickListener(new View.OnClickListener() {
+      /*  btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String s1 = getSharedPreferences("MySharedPref", 0).getString("id_number", "");
-                AlertDialog alert = Design2.this.builder.create();
+                AlertDialog alert = AcceptingDesign.this.builder.create();
                 alert.setTitle("Upload Files");
                 alert.show();
 
             }
-        });
+        });*/
 
 
-        this.builder = new AlertDialog.Builder(this);
+     /*   this.builder = new AlertDialog.Builder(this);
         this.builder.setMessage("Tasks").setTitle("Task Complete");
         this.builder.setMessage("Upload Files").setCancelable(false).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id2) {
@@ -216,17 +214,17 @@ String fil,uid;
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Intent intent=new Intent(getApplicationContext(),UserDashboard.class);
+                Intent intent=new Intent(getApplicationContext(), WorkerDashboard.class);
                 startActivity(intent);
                 finish();
             }
-        });
+        });*/
         this.builds = new AlertDialog.Builder(this);
         this.builds.setTitle("Task Accepted");
         this.builds.setMessage("Task Accepted successfully").setCancelable(false).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id2) {
                 dialog.dismiss();
-                Intent intent=new Intent(getApplicationContext(), UserDashboard.class);
+                Intent intent=new Intent(getApplicationContext(), WorkerDashboard.class);
                 startActivity(intent);
                 finish();
               /*  Intent galleryIntent = new Intent();
@@ -239,7 +237,7 @@ String fil,uid;
         });
     }
 
-    private void startDownloading() {
+   /* private void startDownloading() {
         String url=fil;
         DownloadManager.Request request=new DownloadManager.Request(Uri.parse(url));
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
@@ -251,10 +249,10 @@ String fil,uid;
         DownloadManager manager=(DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
         manager.enqueue(request);
 
-    }
+    }*/
 
     ProgressDialog dialog;
-
+/*
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -314,13 +312,13 @@ String fil,uid;
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    /*DatabaseReference data = FirebaseDatabase.getInstance().getReference("alltasks").child(stu);
+                                    *//*DatabaseReference data = FirebaseDatabase.getInstance().getReference("alltasks").child(stu);
                                     data.child("status").setValue("Submitted");
                                     DatabaseReference datas = FirebaseDatabase.getInstance().getReference("usertask").child(uid).child(stu);
-                                    datas.child("file").setValue(myurl);*/
+                                    datas.child("file").setValue(myurl);*//*
                                     shows.setVisibility(View.VISIBLE);
                                     shows.setText(filepath.getName());
-                                    Intent intent = new Intent(getApplicationContext(), Design2.class);
+                                    Intent intent = new Intent(getApplicationContext(), AcceptingDesign.class);
                                     startActivity(intent);
                                     finish();
                                 }
@@ -328,11 +326,11 @@ String fil,uid;
                         });
                     } else {
                         dialog.dismiss();
-                        Toast.makeText(Design2.this, "Upload Failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AcceptingDesign.this, "Upload Failed", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         }
-    }
+    }*/
 
 }

@@ -15,21 +15,21 @@
         android:theme="@style/Theme.WorkAllocation"
         tools:targetApi="31">
         <activity
-            android:name=".utils.User.Design4"
+            android:name=".utils.User.View_user_task_details"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".utils.Admin.DesignActivity"
+            android:name=".utils.Admin.WorkerDetailsFromAd"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".utils.Admin.AllWorkers"
+            android:name=".utils.Admin.ViewAllWorkers"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -43,35 +43,35 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".utils.Admin.ViewWorkers"
+            android:name=".utils.Admin.AvailableWorkers"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".utils.Design3"
+            android:name=".utils.Admin.View_task_details_admin_dashboard"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".utils.Design2"
+            android:name=".utils.Worker.AcceptingDesign"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".utils.ProfileActivity"
+            android:name=".UI.ProfileActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".utils.User.UserDashboard"
+            android:name=".utils.Worker.WorkerDashboard"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -99,35 +99,35 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".utils.Worker.Dashboard"
+            android:name=".utils.User.UserDashboard"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".utils.Worker.Design"
+            android:name=".utils.Admin.AssignWorkToWorkers"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".utils.Admin.Available"
+            android:name=".utils.Admin.Available_Workers_Per_Dep"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".utils.Admin.ViewActivity"
+            android:name=".utils.Admin.ViewAllTasks"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".utils.Admin.Workers"
+            android:name=".utils.Admin.AddWorkers"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -141,7 +141,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".utils.LoginActivity"
+            android:name=".Entrypoint.LoginActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
@@ -154,14 +154,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".utils.Registration"
+            android:name=".Entrypoint.Registration"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".utils.SplashScreen"
+            android:name=".UI.SplashScreen"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

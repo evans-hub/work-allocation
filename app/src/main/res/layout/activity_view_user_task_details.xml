@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".utils.Admin.DesignActivity">
+    tools:context=".utils.User.View_user_task_details">
 
     <ImageView
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Worker Specs"
+            android:text="Task Specs"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:paddingLeft="20dp"
@@ -52,7 +52,7 @@
                     android:textSize="18sp"
                     />
                 <TextView
-                    android:id="@+id/department_p"
+                    android:id="@+id/pp_departmentsp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Finance"
@@ -80,11 +80,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Id NUmber"
+                    android:text="Urgency"
                     android:textSize="16sp"
                     />
                 <TextView
-                    android:id="@+id/id_p"
+                    android:id="@+id/pp_urgencysp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="critical"
@@ -116,7 +116,7 @@
                     android:textSize="18sp"
                     />
                 <TextView
-                    android:id="@+id/pp_status"
+                    android:id="@+id/pp_statussp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="weed344"
@@ -132,7 +132,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Worker Info"
+        android:text="Task Info"
         android:textColor="@color/black"
         android:textStyle="bold"
         android:textSize="20sp"
@@ -152,31 +152,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Name"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:textSize="18sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email"
+                android:text="Start Date"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:textSize="18sp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Availability"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="18sp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Phone Number"
+                android:layout_marginTop="10dp"
+                android:text="Due Date"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="18sp"/>
@@ -190,49 +182,53 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/name_p"
+                android:id="@+id/pp_namesp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text=""
+                android:layout_marginTop="10dp"
+                android:text="Finance reports"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/email_p"
+                android:id="@+id/pp_datesp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text=""
+                android:layout_marginTop="10dp"
+                android:text="20/12/2020"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/availability_p"
+                android:id="@+id/pp_e_datesp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text=""
-                android:textSize="18sp" />
-            <TextView
-                android:id="@+id/phone_p"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text=""
+                android:layout_marginTop="10dp"
+                android:text="20/12/2020"
                 android:textSize="18sp" />
 
 
 
         </LinearLayout>
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/pp_descsp"
+        android:text="Full Description"
+        android:layout_marginHorizontal="20dp"
+        android:paddingHorizontal="10dp"
+        android:paddingTop="5dp"
+        android:scrollbars="vertical"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="80dp"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button_p"
+            android:id="@+id/pp_buttonsp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:paddingLeft="10dp"

@@ -1,6 +1,5 @@
 package com.example.workallocation.utils.Admin;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,12 +16,11 @@ import android.widget.Toast;
 import com.example.workallocation.Adapters.AdminAdapter;
 import com.example.workallocation.Entity.TaskModel;
 import com.example.workallocation.R;
-import com.example.workallocation.utils.ProfileActivity;
+import com.example.workallocation.UI.ProfileActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -64,7 +62,7 @@ RecyclerView recyclerView;
         tt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),AllWorkers.class);
+                Intent intent=new Intent(getApplicationContext(), ViewAllWorkers.class);
                 startActivity(intent);
 
             }
@@ -72,7 +70,7 @@ RecyclerView recyclerView;
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),ViewActivity.class);
+                Intent intent=new Intent(getApplicationContext(), ViewAllTasks.class);
                 startActivity(intent);
 
             }
@@ -131,7 +129,7 @@ RecyclerView recyclerView;
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_profile:
-                        startActivity(new Intent(getApplicationContext(), ViewActivity.class));
+                        startActivity(new Intent(getApplicationContext(), ViewAllTasks.class));
                         finish();
                         return false;
                     case R.id.action_home:
@@ -143,7 +141,7 @@ RecyclerView recyclerView;
                         finish();
                         return false;
                     case R.id.task:
-                        startActivity(new Intent(getApplicationContext(), AllWorkers.class));
+                        startActivity(new Intent(getApplicationContext(), ViewAllWorkers.class));
                         finish();
                         return false;
                     default:

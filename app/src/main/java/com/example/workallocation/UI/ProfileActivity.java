@@ -1,4 +1,4 @@
-package com.example.workallocation.utils;
+package com.example.workallocation.UI;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.workallocation.R;
-import com.example.workallocation.utils.Worker.Dashboard;
+import com.example.workallocation.Entrypoint.LoginActivity;
+import com.example.workallocation.utils.User.UserDashboard;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,8 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 public class ProfileActivity extends AppCompatActivity {
 TextView email,phone,id,user,name;
 DatabaseReference reference;
-    FirebaseAuth mAuth;
-
+FirebaseAuth mAuth;
 
     @Override
     protected void onStart() {
@@ -71,7 +71,7 @@ DatabaseReference reference;
         im.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(ProfileActivity.this, Dashboard.class);
+                Intent intent=new Intent(ProfileActivity.this, UserDashboard.class);
                 startActivity(intent);
                 finish();
             }

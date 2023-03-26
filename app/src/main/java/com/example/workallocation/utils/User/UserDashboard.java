@@ -1,6 +1,5 @@
 package com.example.workallocation.utils.User;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,64 +12,66 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.workallocation.Adapters.DashAdapter;
-import com.example.workallocation.Adapters.Userdashboardadapter;
+import com.example.workallocation.Adapters.UserDashboardAdapter;
 import com.example.workallocation.Entity.TaskModel;
 import com.example.workallocation.R;
-import com.example.workallocation.utils.AssignedActivity;
-import com.example.workallocation.utils.Admin.Available;
-import com.example.workallocation.utils.Admin.ViewActivity;
-import com.example.workallocation.utils.ProfileActivity;
-import com.example.workallocation.utils.Worker.Dashboard;
+import com.example.workallocation.UI.ProfileActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class UserDashboard extends AppCompatActivity {
     RecyclerView recyclerView;
-    Userdashboardadapter adapter;
-    String uid,idnumber;
-    TextView textView;
+    UserDashboardAdapter adapter;
+    ArrayList<TaskModel> list;
+    ProgressDialog loading;
+    Query references;
+    FirebaseAuth mAuth;
+    String id,s1;
+    private TextView textView,which;
 
     @Override
     protected void onStart() {
         super.onStart();
-        uid=mAuth.getCurrentUser().getUid();
-        DatabaseReference reference=FirebaseDatabase.getInstance().getReference("workemail");
-        reference.child(uid).child("id").addListenerForSingleValueEvent(new ValueEventListener() {
+        s1 = getSharedPreferences("MySharedPref", 0).getString("id_number", "");
+        textView.setText("idid"+s1);
+        String nn=mAuth.getCurrentUser().getEmail();
+        which.setText(nn);
+
+        /*mAuth=FirebaseAuth.getInstance();
+        String nn=mAuth.getCurrentUser().getUid();
+        DatabaseReference reference= FirebaseDatabase.getInstance().getReference("users").child("client");
+        reference.child(nn).child("id").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                idnumber=snapshot.getValue(String.class);
-                textView.setText(idnumber);
-                textView.setVisibility(View.GONE);
+                id=snapshot.getValue(String.class);
+                textView.setText(id);
+                Toast.makeText(Dashboard.this, "idss"+textView.getText().toString(), Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
-
+        });*/
     }
 
-    ArrayList<TaskModel> list;
-    ProgressDialog loading;
-    DatabaseReference references;
-    FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_dashboard);
-        recyclerView=findViewById(R.id.rec);
+        recyclerView=findViewById(R.id.recyclerr);
         loading = new ProgressDialog(this);
         mAuth=FirebaseAuth.getInstance();
-        textView=findViewById(R.id.texx);
+        textView=findViewById(R.id.textv);
+        which=findViewById(R.id.usern);
         final BottomNavigationView navigationView = (BottomNavigationView) findViewById(R.id.navigation);
 
 
@@ -78,7 +79,7 @@ public class UserDashboard extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         list = new ArrayList<>();
-        adapter = new Userdashboardadapter(this,list);
+        adapter = new UserDashboardAdapter(this,list);
         recyclerView.setAdapter(adapter);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -95,8 +96,8 @@ public class UserDashboard extends AppCompatActivity {
             }
         });
         this.loading.show();
-        references = FirebaseDatabase.getInstance().getReference("everyworker");
-        this.references.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+        references =  FirebaseDatabase.getInstance().getReference("usertask").child(mAuth.getCurrentUser().getUid());
+        this.references.addValueEventListener(new ValueEventListener() {
             public void onDataChange(DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     loading.dismiss();
@@ -104,7 +105,7 @@ public class UserDashboard extends AppCompatActivity {
                 }
                 adapter.notifyDataSetChanged();
                 if (UserDashboard.this.list.size() == 0) {
-                    Toast.makeText(UserDashboard.this, "No taskss", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserDashboard.this, "No tasks", Toast.LENGTH_SHORT).show();
                     loading.dismiss();
                 }
                 int total = 0;
@@ -129,12 +130,12 @@ public class UserDashboard extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), UserDashboard.class));
                         finish();
                         return false;
-                    /*case R.id.settings:
+                    case R.id.settings:
                         startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         finish();
-                        return false;*/
+                        return false;
                     case R.id.task:
-                        startActivity(new Intent(getApplicationContext(), UserDashboard.class));
+                        startActivity(new Intent(getApplicationContext(), Task.class));
                         finish();
                         return false;
                     default:

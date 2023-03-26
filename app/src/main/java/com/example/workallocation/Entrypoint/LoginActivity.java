@@ -1,4 +1,4 @@
-package com.example.workallocation.utils;
+package com.example.workallocation.Entrypoint;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,14 +18,12 @@ import android.widget.Toast;
 
 import com.example.workallocation.R;
 import com.example.workallocation.utils.Admin.AdminDashboard;
-import com.example.workallocation.utils.Admin.Workers;
+import com.example.workallocation.utils.Worker.WorkerDashboard;
 import com.example.workallocation.utils.User.UserDashboard;
-import com.example.workallocation.utils.Worker.Dashboard;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.auth.User;
 
 public class LoginActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 EditText em,pp;
@@ -73,13 +71,13 @@ String dep[]={"Admin","Client","Worker"};
                 finish();
             }
            else if (emm.contains("worker")){
-                Intent intent=new Intent(LoginActivity.this, UserDashboard.class);
+                Intent intent=new Intent(LoginActivity.this, WorkerDashboard.class);
                 startActivity(intent);
                 loading.dismiss();
                 finish();
             }
            else {
-                Intent intent=new Intent(LoginActivity.this, Dashboard.class);
+                Intent intent=new Intent(LoginActivity.this, UserDashboard.class);
                 startActivity(intent);
                 finish();
             }
@@ -126,13 +124,13 @@ String dep[]={"Admin","Client","Worker"};
                                     finish();
                                 }
                                 else if(user.equalsIgnoreCase("worker")){
-                                    Intent intent=new Intent(LoginActivity.this, UserDashboard.class);
+                                    Intent intent=new Intent(LoginActivity.this, WorkerDashboard.class);
                                     startActivity(intent);
                                     loading.dismiss();
                                     finish();
                                 }
                                 else {
-                                    Intent intent=new Intent(LoginActivity.this, Dashboard.class);
+                                    Intent intent=new Intent(LoginActivity.this, UserDashboard.class);
                                     startActivity(intent);
                                     loading.dismiss();
                                     finish();
@@ -170,13 +168,13 @@ String dep[]={"Admin","Client","Worker"};
                                     finish();
                                 }
                                 else if(user.equalsIgnoreCase("worker")){
-                                    Intent intent=new Intent(LoginActivity.this, UserDashboard.class);
+                                    Intent intent=new Intent(LoginActivity.this, WorkerDashboard.class);
                                     startActivity(intent);
                                     loading.dismiss();
                                     finish();
                                 }
                                 else {
-                                    Intent intent=new Intent(LoginActivity.this, Dashboard.class);
+                                    Intent intent=new Intent(LoginActivity.this, UserDashboard.class);
                                     startActivity(intent);
                                     loading.dismiss();
                                     finish();
@@ -200,7 +198,7 @@ String dep[]={"Admin","Client","Worker"};
                         if (task.isSuccessful()) {
                             mAuth = FirebaseAuth.getInstance();
                             if (user.equalsIgnoreCase("client")) {
-                                Intent intent = new Intent(LoginActivity.this, Dashboard.class);
+                                Intent intent = new Intent(LoginActivity.this, UserDashboard.class);
 
 
                                 startActivity(intent);
@@ -213,7 +211,7 @@ String dep[]={"Admin","Client","Worker"};
                                 loading.dismiss();
                                 finish();
                             } else if (user.equalsIgnoreCase("worker")) {
-                                Intent intent = new Intent(LoginActivity.this, UserDashboard.class);
+                                Intent intent = new Intent(LoginActivity.this, WorkerDashboard.class);
                                 startActivity(intent);
                                 loading.dismiss();
                                 finish();

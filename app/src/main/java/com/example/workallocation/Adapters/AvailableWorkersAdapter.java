@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.workallocation.Entity.TaskModel;
 import com.example.workallocation.Entity.workModel;
 import com.example.workallocation.R;
-import com.example.workallocation.utils.Admin.ViewActivity;
+import com.example.workallocation.utils.Admin.ViewAllTasks;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -26,20 +26,20 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class AvailableAdapter extends RecyclerView.Adapter<AvailableAdapter.MyViewHolder> {
+public class AvailableWorkersAdapter extends RecyclerView.Adapter<AvailableWorkersAdapter.MyViewHolder> {
     Context context;
     ArrayList<workModel> list;
     String assignx,depx,endx,startx,filex,datex,titlex,descx,state,sdesc,status;
 
 
 
-    public AvailableAdapter(Context context2, ArrayList<workModel> list2) {
+    public AvailableWorkersAdapter(Context context2, ArrayList<workModel> list2) {
         this.context = context2;
         this.list = list2;
     }
 
-    public AvailableAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new AvailableAdapter.MyViewHolder(LayoutInflater.from(this.context).inflate(R.layout.list, parent, false));
+    public AvailableWorkersAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new AvailableWorkersAdapter.MyViewHolder(LayoutInflater.from(this.context).inflate(R.layout.list, parent, false));
     }
 
     @Override
@@ -98,7 +98,7 @@ status=snapshot.child("status").getValue(String.class);
                         DatabaseReference reff = FirebaseDatabase.getInstance().getReference("tasks").child(taskId);
                         reff.removeValue();*/
 
-                        Intent intent1=new Intent(context.getApplicationContext(), ViewActivity.class);
+                        Intent intent1=new Intent(context.getApplicationContext(), ViewAllTasks.class);
                         context.startActivity(intent1);
                         ((Activity) context).finish();
                     }

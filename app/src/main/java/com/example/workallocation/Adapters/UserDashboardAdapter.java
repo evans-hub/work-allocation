@@ -14,8 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workallocation.Entity.TaskModel;
 import com.example.workallocation.R;
-import com.example.workallocation.utils.Design2;
-import com.example.workallocation.utils.User.Design4;
+import com.example.workallocation.utils.User.View_user_task_details;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-public class DashAdapter extends RecyclerView.Adapter<DashAdapter.MyViewHolder> {
+public class UserDashboardAdapter extends RecyclerView.Adapter<UserDashboardAdapter.MyViewHolder> {
     Context context;
     ArrayList<TaskModel> list;
     FirebaseAuth mAuth;
@@ -32,7 +31,7 @@ public class DashAdapter extends RecyclerView.Adapter<DashAdapter.MyViewHolder> 
 
 
 
-    public DashAdapter(Context context2, ArrayList<TaskModel> list2) {
+    public UserDashboardAdapter(Context context2, ArrayList<TaskModel> list2) {
         this.context = context2;
         this.list = list2;
     }
@@ -75,7 +74,7 @@ public class DashAdapter extends RecyclerView.Adapter<DashAdapter.MyViewHolder> 
             @Override
             public void onClick(View view) {
 
-                Intent intent=new Intent(context.getApplicationContext(), Design4.class);
+                Intent intent=new Intent(context.getApplicationContext(), View_user_task_details.class);
                 intent.putExtra("id",model.getTaskId());
                 intent.putExtra("dep",model.getDepartment());
                 intent.putExtra("desc",model.getDescription());

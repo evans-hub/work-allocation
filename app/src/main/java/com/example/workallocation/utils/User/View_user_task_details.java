@@ -1,4 +1,4 @@
-package com.example.workallocation.utils.Worker;
+package com.example.workallocation.utils.User;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,24 +10,23 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.workallocation.R;
-import com.example.workallocation.utils.Admin.Available;
 
-public class Design extends AppCompatActivity {
+public class View_user_task_details extends AppCompatActivity {
     TextView name, urgency, start, end, dep, to, status;
     Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_design);
-        btn = findViewById(R.id.p_button);
-        name = findViewById(R.id.p_name);
-        urgency = findViewById(R.id.p_urgency);
-        start = findViewById(R.id.p_date);
-        end = findViewById(R.id.p_e_date);
-        status = findViewById(R.id.p_status);
-        dep = findViewById(R.id.p_department);
-        to = findViewById(R.id.p_desc);
+        setContentView(R.layout.activity_view_user_task_details);
+        btn = findViewById(R.id.pp_buttonsp);
+        name = findViewById(R.id.pp_namesp);
+        urgency = findViewById(R.id.pp_urgencysp);
+        start = findViewById(R.id.pp_datesp);
+        end = findViewById(R.id.pp_e_datesp);
+        status = findViewById(R.id.pp_statussp);
+        dep = findViewById(R.id.pp_departmentsp);
+        to = findViewById(R.id.pp_descsp);
         to.setMovementMethod(new ScrollingMovementMethod());
 
 
@@ -49,10 +48,9 @@ public class Design extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(Design.this, Available.class);
-                intent.putExtra("id",stu);
-                intent.putExtra("dep",de);
+                Intent intent=new Intent(View_user_task_details.this, UserDashboard.class);
                 startActivity(intent);
+                finish();
             }
         });
 

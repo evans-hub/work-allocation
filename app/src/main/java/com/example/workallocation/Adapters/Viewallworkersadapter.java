@@ -12,27 +12,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.workallocation.Entity.TaskModel;
 import com.example.workallocation.Entity.workModel;
 import com.example.workallocation.R;
-import com.example.workallocation.utils.Admin.DesignActivity;
-import com.example.workallocation.utils.Design2;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.example.workallocation.utils.Admin.WorkerDetailsFromAd;
 
 import java.util.ArrayList;
 
-public class workersadapter extends RecyclerView.Adapter<workersadapter.MyViewHolder> {
+public class Viewallworkersadapter extends RecyclerView.Adapter<Viewallworkersadapter.MyViewHolder> {
     Context context;
     ArrayList<workModel> list;
     String subjects;
 
 
 
-    public workersadapter(Context context2, ArrayList<workModel> list2) {
+    public Viewallworkersadapter(Context context2, ArrayList<workModel> list2) {
         this.context = context2;
         this.list = list2;
     }
@@ -44,7 +37,7 @@ public class workersadapter extends RecyclerView.Adapter<workersadapter.MyViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull workersadapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull Viewallworkersadapter.MyViewHolder holder, int position) {
         workModel model = this.list.get(position);
         holder.mname.setText(model.getName());
         holder.mdesc.setText(model.getDep());
@@ -73,7 +66,7 @@ public class workersadapter extends RecyclerView.Adapter<workersadapter.MyViewHo
         holder.btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(context.getApplicationContext(), DesignActivity.class);
+                Intent intent=new Intent(context.getApplicationContext(), WorkerDetailsFromAd.class);
                 intent.putExtra("id",model.getId());
                 intent.putExtra("dep",model.getDep());
                 intent.putExtra("phone",model.getPhone());
